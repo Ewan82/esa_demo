@@ -1,6 +1,8 @@
 signaturesimulator
 ==================
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Ewan82/esa_demo/master)
+
 This Python package simulates satellite data from passive optical and active microwave sensors based on land surface
 biogeophysical state variables (leaf area index, canopy height and soil moisture) and viewing geometries and times.
 Here we provide documentation on this package. Below we illustrate a few basic examples of installing the package and
