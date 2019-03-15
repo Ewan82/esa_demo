@@ -1,0 +1,12 @@
+*.nc
+*.pyc
+tests/
+.idea/
+docs/_build
+docs/_static
+docs/_templates
+*.egg-info
+#*.o
+build/
+dist/
+#semiD
