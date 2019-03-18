@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# pip install git+https://github.com/jgomezdans/GomezEngine.git
+pip install git+https://github.com/Ewan82/esa_demo.git
 jupyter contrib nbextension install --user
 jupyter nbextension enable --py widgetsnbextension
 jupyter nbextension enable python-markdown/main
