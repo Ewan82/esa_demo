@@ -12,3 +12,4 @@ dependencies:
     - pandas
     - jupyter_contrib_nbextensions
     - widgetsnbextension
+    - signaturesimulator
