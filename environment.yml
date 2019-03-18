@@ -12,7 +12,6 @@ dependencies:
     - pandas
     - jupyter_contrib_nbextensions
     - widgetsnbextension
-    - libgfortran3
-    - lib32gfortran3
-    - libx32gfortran3
+    - libgfortran
+    - fortran-magic
     - matplotlib>=1.4.3,<3

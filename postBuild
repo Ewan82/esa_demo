@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # pip install git+https://github.com/jgomezdans/GomezEngine.git
-sudo apt-get install libgfortran3
-sudo apt-get install lib32gfortran3 libx32gfortran3
+#sudo apt-get install libgfortran3
+#sudo apt-get install lib32gfortran3 libx32gfortran3
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.bashrc
 pip install signaturesimulator
 jupyter contrib nbextension install --user
 jupyter nbextension enable --py widgetsnbextension
