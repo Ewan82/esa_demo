@@ -2,6 +2,7 @@
 
 # pip install git+https://github.com/jgomezdans/GomezEngine.git
 sudo apt-get install libgfortran3
+sudo apt-get install lib32gfortran3 libx32gfortran3
 pip install signaturesimulator
 jupyter contrib nbextension install --user
 jupyter nbextension enable --py widgetsnbextension
