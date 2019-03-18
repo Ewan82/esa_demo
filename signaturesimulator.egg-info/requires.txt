@@ -1,0 +1,7 @@
+numpy
+scipy
+pyorbital
+mock
+matplotlib
+netCDF4
+f90nml

@@ -5,8 +5,8 @@ tests/
 docs/_build
 docs/_static
 docs/_templates
-*.egg-info
+#*.egg-info
 #*.o
-build/
-dist/
+#build/
+#dist/
 #semiD
