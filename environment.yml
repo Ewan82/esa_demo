@@ -1,11 +1,14 @@
-name: example-environment
-channels:
-  - conda-forge
+name: geog0133_env
+
 dependencies:
-  - python
-  - numpy
-  - pip:
-    - nbgitpuller
-    - sphinx-gallery
-    - pandas
+    - jupyterlab
+    - notebook
+    - nbconvert
+    - ipykernel
+    - ipywidgets
+    - ipyleaflet
+    - widgetsnbextension
     - matplotlib
+    - pandas
+    - jupyter_contrib_nbextensions
+    - widgetsnbextension
