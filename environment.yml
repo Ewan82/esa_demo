@@ -12,5 +12,5 @@ dependencies:
     - pandas
     - jupyter_contrib_nbextensions
     - widgetsnbextension
-    - libc
+    - glibc
     - matplotlib>=1.4.3,<3
