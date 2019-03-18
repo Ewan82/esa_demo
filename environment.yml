@@ -1,6 +1,7 @@
 name: geog0133_env
 
 dependencies:
+    - python2.7
     - jupyterlab
     - notebook
     - nbconvert
@@ -12,3 +13,6 @@ dependencies:
     - pandas
     - jupyter_contrib_nbextensions
     - widgetsnbextension
+    - matplotlib>=1.4.3,<3
+    - C
+    - C++
