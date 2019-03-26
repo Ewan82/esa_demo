@@ -1443,9 +1443,9 @@ SUBROUTINE SIMULATE_S1_1GEOM_FWV(statev, statev_fwv, iv_geom, bscat, &
   EXTERNAL SIGMA0_VHVV
   EXTERNAL SIGMA0_VHVV_FWV
 ! local declarations
-  REAL(kind=8) :: lai_coeff, lai, hc, sm
-  REAL(kind=8), DIMENSION(nbdirsmax) :: lai_coeff_fwv, lai_fwv, hc_fwv, &
-& sm_fwv
+  REAL(kind=8) :: lai_coeff(2), lai, hc, sm
+  REAL(kind=8) :: lai_coeff_fwv(nbdirsmax, 2), lai_fwv(nbdirsmax), &
+& hc_fwv(nbdirsmax), sm_fwv(nbdirsmax)
   REAL(kind=8) :: s0vh, s0vv
   REAL(kind=8), DIMENSION(nbdirsmax) :: s0vh_fwv, s0vv_fwv
 !-- S1 viewing zenith angle
@@ -1454,15 +1454,16 @@ SUBROUTINE SIMULATE_S1_1GEOM_FWV(statev, statev_fwv, iv_geom, bscat, &
   INTEGER :: nbdirs
   DO nd=1,nbdirs
 !-- map state variables
-    lai_coeff_fwv(nd) = statev_fwv(nd, 1)
-    lai_fwv(nd) = statev_fwv(nd, 2)
-    hc_fwv(nd) = statev_fwv(nd, 3)
-    sm_fwv(nd) = statev_fwv(nd, 4)
+!-- H,V polarisation
+    lai_coeff_fwv(nd, :) = statev_fwv(nd, 1:2)
+    lai_fwv(nd) = statev_fwv(nd, 3)
+    hc_fwv(nd) = statev_fwv(nd, 4)
+    sm_fwv(nd) = statev_fwv(nd, 5)
   END DO
-  lai_coeff = statev(1)
-  lai = statev(2)
-  hc = statev(3)
-  sm = statev(4)
+  lai_coeff = statev(1:2)
+  lai = statev(3)
+  hc = statev(4)
+  sm = statev(5)
 !--
   vza_deg = iv_geom(3)
 !-- convert to RAD
@@ -1491,7 +1492,7 @@ END SUBROUTINE SIMULATE_S1_1GEOM_FWV
 !> @details 
 !
 !> @param[in]  lai        leaf-area index [m2/m2] as used in optical domain
-!> @param[in]  lai_coeff  conversion coefficient for lai optical to microwave
+!> @param[in]  lai_coeff  conversion coefficient for lai optical to microwave (V and H polarisation)
 !> @param[in]  canht      canopy height [m]
 !> @param[in]  mv         volumetric soilmoisture [m3/m3]
 !> @param[out] s0vh       backscattering coefficient, VH polarisation
@@ -1499,15 +1500,57 @@ END SUBROUTINE SIMULATE_S1_1GEOM_FWV
 !
 SUBROUTINE SIGMA0_VHVV_FWV(lai, lai_fwv, lai_coeff, lai_coeff_fwv, canht&
 & , canht_fwv, mv, mv_fwv, s0vh, s0vh_fwv, s0vv, s0vv_fwv, nbdirs)
+  USE DIFFSIZES
+!  Hint: nbdirsmax should be the maximum number of differentiation directions
+  IMPLICIT NONE
+! arguments
+  REAL(kind=8), INTENT(IN) :: lai, lai_coeff(2), canht, mv
+  REAL(kind=8), INTENT(IN) :: lai_fwv(nbdirsmax), lai_coeff_fwv(&
+& nbdirsmax, 2), canht_fwv(nbdirsmax), mv_fwv(nbdirsmax)
+  REAL(kind=8), INTENT(OUT) :: s0vh, s0vv
+  REAL(kind=8), DIMENSION(nbdirsmax), INTENT(OUT) :: s0vh_fwv, s0vv_fwv
+! externals
+  EXTERNAL SIGMA0_VHVVHH
+  EXTERNAL SIGMA0_VHVVHH_FWV
+! local declarations
+  REAL(kind=8) :: s0hh
+  INTEGER :: nbdirs
+  CALL SIGMA0_VHVVHH_FWV(lai, lai_fwv, lai_coeff, lai_coeff_fwv, canht, &
+&                  canht_fwv, mv, mv_fwv, s0vh, s0vh_fwv, s0vv, s0vv_fwv&
+&                  , s0hh, nbdirs)
+END SUBROUTINE SIGMA0_VHVV_FWV
+
+!  Differentiation of sigma0_vhvvhh in forward (tangent) mode (with options messagesInFile noinclude noISIZE r8 multiDirectional)
+!:
+!   variations   of useful results: s0vh s0vv
+!   with respect to varying inputs: lai lai_coeff canht mv
+!***********************************************************
+!     sigma0_vhvvhh
+!
+!> @brief compute total single-scattering backscattering coefficents for HH and VV polarisations
+!
+!> @details 
+!
+!> @param[in]  lai        leaf-area index [m2/m2] as used in optical domain
+!> @param[in]  lai_coeff  conversion coefficient for lai optical to microwave (V and H polarisaton)
+!> @param[in]  canht      canopy height [m]
+!> @param[in]  mv         volumetric soilmoisture [m3/m3]
+!> @param[out] s0vh       backscattering coefficient, VH polarisation
+!> @param[out] s0vv       backscattering coefficient, VV polarisation
+!> @param[out] s0hh       backscattering coefficient, HH polarisation!
+!
+SUBROUTINE SIGMA0_VHVVHH_FWV(lai, lai_fwv, lai_coeff, lai_coeff_fwv, &
+& canht, canht_fwv, mv, mv_fwv, s0vh, s0vh_fwv, s0vv, s0vv_fwv, s0hh, &
+& nbdirs)
   USE MO_SENSIMUL_S1
   USE DIFFSIZES
 !  Hint: nbdirsmax should be the maximum number of differentiation directions
   IMPLICIT NONE
 ! arguments
-  REAL(kind=8), INTENT(IN) :: lai, lai_coeff, canht, mv
-  REAL(kind=8), DIMENSION(nbdirsmax), INTENT(IN) :: lai_fwv, &
-& lai_coeff_fwv, canht_fwv, mv_fwv
-  REAL(kind=8), INTENT(OUT) :: s0vh, s0vv
+  REAL(kind=8), INTENT(IN) :: lai, lai_coeff(2), canht, mv
+  REAL(kind=8), INTENT(IN) :: lai_fwv(nbdirsmax), lai_coeff_fwv(&
+& nbdirsmax, 2), canht_fwv(nbdirsmax), mv_fwv(nbdirsmax)
+  REAL(kind=8), INTENT(OUT) :: s0vh, s0vv, s0hh
   REAL(kind=8), DIMENSION(nbdirsmax), INTENT(OUT) :: s0vh_fwv, s0vv_fwv
 ! externals
   EXTERNAL DOBSON85_EPS
@@ -1530,26 +1573,19 @@ SUBROUTINE SIGMA0_VHVV_FWV(lai, lai_fwv, lai_coeff, lai_coeff_fwv, canht&
   REAL(kind=8) :: v, h, rho_v, rho_h, t_v, t_h, ke_v, ke_h, ks_h, ks_v
   REAL(kind=8), DIMENSION(nbdirsmax) :: v_fwv, h_fwv, rho_v_fwv, &
 & rho_h_fwv, t_v_fwv, t_h_fwv, ke_v_fwv, ke_h_fwv, ks_h_fwv, ks_v_fwv
-  REAL(kind=8) :: lai_mw
-  REAL(kind=8), DIMENSION(nbdirsmax) :: lai_mw_fwv
-!hh,vv,hv
+!hh,vv,vh
   REAL(kind=8) :: soil_backscatter(3)
   REAL(kind=8) :: soil_backscatter_fwv(nbdirsmax, 3)
-!hh,vv,hv
+!hh,vv,vh
   REAL(kind=8) :: sigma_vol_bistatic(3), sigma_vol_back(3)
   REAL(kind=8) :: sigma_vol_bistatic_fwv(nbdirsmax, 3), &
 & sigma_vol_back_fwv(nbdirsmax, 3)
-!hh,vv,hv
+!hh,vv,vh
   REAL(kind=8) :: s0c(3), s0g(3), s0cgt(3), s0gcg(3)
   REAL(kind=8) :: s0c_fwv(nbdirsmax, 3), s0g_fwv(nbdirsmax, 3), &
 & s0cgt_fwv(nbdirsmax, 3), s0gcg_fwv(nbdirsmax, 3)
   INTEGER :: nd
   INTEGER :: nbdirs
-  DO nd=1,nbdirs
-!-- microwave LAI
-    lai_mw_fwv(nd) = lai_fwv(nd)*lai_coeff + lai*lai_coeff_fwv(nd)
-  END DO
-  lai_mw = lai*lai_coeff
 !-- soil-moisture ==> eps (dielectric permittivity)
   CALL DOBSON85_EPS_FWV(mv, mv_fwv, bulk, alpha, beta1, beta2, ew, eps, &
 &                 eps_fwv, nbdirs)
@@ -1559,9 +1595,10 @@ SUBROUTINE SIGMA0_VHVV_FWV(lai, lai_fwv, lai_coeff, lai_coeff_fwv, canht&
   CALL CALC_RHO_FWV(theta, ks, v, v_fwv, h, h_fwv, rho_v, rho_v_fwv, &
 &             rho_h, rho_h_fwv, nbdirs)
 !-- extinction coefficients
-  CALL CANOPY_EXTINCTION_COEFFS_FWV(omega, lai_mw, lai_mw_fwv, ke_v, &
-&                             ke_v_fwv, ke_h, ke_h_fwv, ks_v, ks_v_fwv, &
-&                             ks_h, ks_h_fwv, nbdirs)
+  CALL CANOPY_EXTINCTION_COEFFS_FWV(omega, lai, lai_fwv, lai_coeff, &
+&                             lai_coeff_fwv, ke_v, ke_v_fwv, ke_h, &
+&                             ke_h_fwv, ks_v, ks_v_fwv, ks_h, ks_h_fwv, &
+&                             nbdirs)
 !-- canopy transmissivity
   CALL CANOPY_TRANSMISSIVITY_FWV(ke_v, ke_v_fwv, ke_h, ke_h_fwv, canht, &
 &                          canht_fwv, theta, t_v, t_v_fwv, t_h, t_h_fwv&
@@ -1590,9 +1627,9 @@ SUBROUTINE SIGMA0_VHVV_FWV(lai, lai_fwv, lai_coeff, lai_coeff_fwv, canht&
   CALL SIGMA_GCG_FWV(sigma_vol_back, sigma_vol_back_fwv, theta, rho_v, &
 &              rho_v_fwv, rho_h, rho_h_fwv, t_v, t_v_fwv, t_h, t_h_fwv, &
 &              ke_v, ke_v_fwv, ke_h, ke_h_fwv, s0gcg, s0gcg_fwv, nbdirs)
-  DO nd=1,nbdirs
 !-- sum-up contributions
-!-- for S1 we have sender=receiver, thus VH equals HV (reciprocal theorem)
+  s0hh = s0c(1) + s0g(1) + s0cgt(1) + s0gcg(1)
+  DO nd=1,nbdirs
     s0vv_fwv(nd) = s0c_fwv(nd, 2) + s0g_fwv(nd, 2) + s0cgt_fwv(nd, 2) + &
 &     s0gcg_fwv(nd, 2)
   END DO
@@ -1630,12 +1667,12 @@ SUBROUTINE SIGMA0_VHVV_FWV(lai, lai_fwv, lai_coeff, lai_coeff_fwv, canht&
     END DO
     s0vh = s0vh + s0gcg(3)
   END IF
-END SUBROUTINE SIGMA0_VHVV_FWV
+END SUBROUTINE SIGMA0_VHVVHH_FWV
 
 !  Differentiation of canopy_extinction_coeffs in forward (tangent) mode (with options messagesInFile noinclude noISIZE r8 multiD
 !irectional):
 !   variations   of useful results: ks_h ks_v ke_h ke_v
-!   with respect to varying inputs: lai_mw
+!   with respect to varying inputs: lai lai_coeff
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
 !> \file canopy.f90
@@ -1654,39 +1691,44 @@ END SUBROUTINE SIGMA0_VHVV_FWV
 !
 !> @brief compute extinction coefficients from LAI (microwave) and single-scattering albedo
 !
-!> @param[in]  omega   single scattering albedo
-!> @param[in]  lai_mw  Leaf-Area Index (MW-compliant)
-!> @param[out] ke_h
-!> @param[out] ke_v
-!> @param[out] ks_h
-!> @param[out] ks_v
+!> @param[in]  omega     single scattering albedo
+!> @param[in]  lai       Leaf-Area Index
+!> @param[in]  lai_coeff coefficient of LAI (separate for V and H) entering the extinction/volume coefficients
+!> @param[out] ke_v      volume extinction coefficient (ver. pol) [Np/m]
+!> @param[out] ke_h      volume extinction coefficient (hor. pol) [Np/m]
+!> @param[out] ks_v      volume scattering coefficient (ver. pol) [Np/m]
+!> @param[out] ks_h      volume scattering coefficient (hor. pol) [Np/m]
 !
 ! Ref: sense/canopy.py, l21 ff.
 !      simulator.py, l100 ff.
 !
-SUBROUTINE CANOPY_EXTINCTION_COEFFS_FWV(omega, lai_mw, lai_mw_fwv, ke_v&
-& , ke_v_fwv, ke_h, ke_h_fwv, ks_v, ks_v_fwv, ks_h, ks_h_fwv, nbdirs)
+SUBROUTINE CANOPY_EXTINCTION_COEFFS_FWV(omega, lai, lai_fwv, lai_coeff, &
+& lai_coeff_fwv, ke_v, ke_v_fwv, ke_h, ke_h_fwv, ks_v, ks_v_fwv, ks_h, &
+& ks_h_fwv, nbdirs)
   USE DIFFSIZES
 !  Hint: nbdirsmax should be the maximum number of differentiation directions
   IMPLICIT NONE
 ! arguments
-  REAL(kind=8), INTENT(IN) :: omega, lai_mw
-  REAL(kind=8), DIMENSION(nbdirsmax), INTENT(IN) :: lai_mw_fwv
+  REAL(kind=8), INTENT(IN) :: omega, lai, lai_coeff(2)
+  REAL(kind=8), INTENT(IN) :: lai_fwv(nbdirsmax), lai_coeff_fwv(&
+& nbdirsmax, 2)
   REAL(kind=8), INTENT(OUT) :: ke_h, ke_v, ks_h, ks_v
   REAL(kind=8), DIMENSION(nbdirsmax), INTENT(OUT) :: ke_h_fwv, ke_v_fwv&
 & , ks_h_fwv, ks_v_fwv
   INTEGER :: nd
   INTEGER :: nbdirs
   DO nd=1,nbdirs
-    ke_h_fwv(nd) = lai_mw_fwv(nd)
-    ke_v_fwv(nd) = lai_mw_fwv(nd)
-    ks_h_fwv(nd) = omega*lai_mw_fwv(nd)
-    ks_v_fwv(nd) = omega*lai_mw_fwv(nd)
+    ke_v_fwv(nd) = lai_fwv(nd)*lai_coeff(1) + lai*lai_coeff_fwv(nd, 1)
+    ke_h_fwv(nd) = lai_fwv(nd)*lai_coeff(2) + lai*lai_coeff_fwv(nd, 2)
+    ks_v_fwv(nd) = omega*(lai_fwv(nd)*lai_coeff(1)+lai*lai_coeff_fwv(nd&
+&     , 1))
+    ks_h_fwv(nd) = omega*(lai_fwv(nd)*lai_coeff(2)+lai*lai_coeff_fwv(nd&
+&     , 2))
   END DO
-  ke_h = lai_mw
-  ke_v = lai_mw
-  ks_h = omega*lai_mw
-  ks_v = omega*lai_mw
+  ke_v = lai*lai_coeff(1)
+  ke_h = lai*lai_coeff(2)
+  ks_v = omega*lai*lai_coeff(1)
+  ks_h = omega*lai*lai_coeff(2)
 END SUBROUTINE CANOPY_EXTINCTION_COEFFS_FWV
 
 !  Differentiation of canopy_transmissivity in forward (tangent) mode (with options messagesInFile noinclude noISIZE r8 multiDire
@@ -1770,7 +1812,7 @@ END SUBROUTINE CANOPY_TRANSMISSIVITY_FWV
 !   with respect to varying inputs: t_h sigma_vol_back t_v ke_h
 !                ke_v
 !***********************************************************
-!     canopy_transmissivity
+!     canopy_sigma_c
 !
 !> @brief calculate canopy volume contribution only (Eq. 11.10 + 11.16 as seen in 11.17, Ulaby (2014))
 !
@@ -1810,6 +1852,7 @@ SUBROUTINE CANOPY_SIGMA_C_FWV(sigma_vol_back, sigma_vol_back_fwv, theta&
   END DO
   s0c(1) = (1._8-t_h*t_h)*(sigma_vol_back(1)*COS(theta))/(ke_h+ke_h)
   s0c(2) = (1._8-t_v*t_v)*(sigma_vol_back(2)*COS(theta))/(ke_v+ke_v)
+!-- HV
   IF (sigma_vol_back(3) .EQ. sense_fv) THEN
 ! TAPENADE: (TC19) Equality test on reals is not reliable
     DO nd=1,nbdirs
@@ -3278,7 +3321,7 @@ SUBROUTINE RHO_0_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_0_nad, &
   REAL :: x_lambda_i
   REAL :: teta_e, phi_e
   REAL :: ki, ke, xs1, xs2, rs_d
-  REAL, DIMENSION(nbdirsmax) :: xs2_fwv
+  REAL, DIMENSION(nbdirsmax) :: xs1_fwv, xs2_fwv
   REAL :: xh_p, xli
   REAL, DIMENSION(nbdirsmax) :: xh_p_fwv, xli_fwv
   REAL :: c1
@@ -3289,6 +3332,8 @@ SUBROUTINE RHO_0_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_0_nad, &
   REAL, DIMENSION(nbdirsmax) :: lai_fwv
   INTEGER :: number, ild
   REAL :: teta_0, phi_0
+  REAL :: x_lambda_x
+  REAL, DIMENSION(nbdirsmax) :: x_lambda_x_fwv
 !     MVO::added type declarations
   REAL, EXTERNAL :: G_ROSS, GEO, HOT_SPOT
   INTEGER :: i, n_c
@@ -3299,12 +3344,11 @@ SUBROUTINE RHO_0_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_0_nad, &
   COMMON /feuille/ tl, rl, lai
   COMMON /i/ number, ild
   COMMON /angle_sol/ teta_0, phi_0
-  INTRINSIC INT
   INTRINSIC COS
   INTRINSIC ABS
   REAL :: abs0
-  REAL :: arg1
   REAL :: pwx1
+  REAL, DIMENSION(nbdirsmax) :: pwx1_fwv
   REAL :: result1
   INTEGER :: nd
   REAL :: rho_0_nad_fwv(nbdirsmax)
@@ -3315,8 +3359,11 @@ SUBROUTINE RHO_0_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_0_nad, &
   COMMON /sol_fwv/ rs_fwv
   COMMON /hp_fwv/ c1_fwv
 !
-  arg1 = lai/x_lambda_i
-  n_c = INT(arg1)
+  n_c = 1000
+  DO nd=1,nbdirs
+    x_lambda_x_fwv(nd) = lai_fwv(nd)/n_c
+  END DO
+  x_lambda_x = lai/n_c
   xg1 = G_ROSS(teta_0)
   xg2 = G_ROSS(teta_e)
   x1 = COS(teta_0)
@@ -3327,13 +3374,22 @@ SUBROUTINE RHO_0_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_0_nad, &
   END IF
   ki = xg1/abs0
   ke = xg2/COS(teta_e)
-  pwx1 = 1. - x_lambda_i*ki
-  xs1 = pwx1**n_c
-  xs2 = 1.
+  pwx1 = 1. - x_lambda_x*ki
   result1 = GEO(teta_e, teta_0, phi_e, phi_0)
   DO nd=1,nbdirs
+    pwx1_fwv(nd) = -(ki*x_lambda_x_fwv(nd))
+    IF (pwx1 .GT. 0.D0 .OR. (pwx1 .LT. 0.D0 .AND. n_c .EQ. INT(n_c))) &
+&   THEN
+      xs1_fwv(nd) = n_c*pwx1**(n_c-1)*pwx1_fwv(nd)
+    ELSE IF (pwx1 .EQ. 0.D0 .AND. n_c .EQ. 1.0) THEN
+      xs1_fwv(nd) = pwx1_fwv(nd)
+    ELSE
+      xs1_fwv(nd) = 0.D0
+    END IF
     xli_fwv(nd) = c1_fwv(nd)/result1
   END DO
+  xs1 = pwx1**n_c
+  xs2 = 1.
   xli = c1/result1
 !
 !  actual optical path to account for the hot-spot effect
@@ -3345,13 +3401,14 @@ SUBROUTINE RHO_0_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_0_nad, &
 !
   DO i=1,n_c
     DO nd=1,nbdirs
-      xs2_fwv(nd) = xs2_fwv(nd)*(1.-x_lambda_i*ke*xh_p) - xs2*x_lambda_i&
-&       *ke*xh_p_fwv(nd)
+      xs2_fwv(nd) = xs2_fwv(nd)*(1.-x_lambda_x*ke*xh_p) - xs2*ke*(&
+&       x_lambda_x_fwv(nd)*xh_p+x_lambda_x*xh_p_fwv(nd))
     END DO
-    xs2 = xs2*(1.-x_lambda_i*ke*xh_p)
+    xs2 = xs2*(1.-x_lambda_x*ke*xh_p)
   END DO
   DO nd=1,nbdirs
-    rho_0_nad_fwv(nd) = xs1*(rs_fwv(nd)*xs2+rs*xs2_fwv(nd))
+    rho_0_nad_fwv(nd) = (rs_fwv(nd)*xs2+rs*xs2_fwv(nd))*xs1 + rs*xs2*&
+&     xs1_fwv(nd)
   END DO
   rho_0_nad = rs*xs2*xs1
   RETURN
@@ -3359,7 +3416,7 @@ END SUBROUTINE RHO_0_NAD_FWV0
 
 !  Differentiation of rho_1_nad in forward (tangent) mode (with options messagesInFile noinclude noISIZE r8 multiDirectional):
 !   variations   of useful results: rho_1_nad
-!   with respect to varying inputs: c1
+!   with respect to varying inputs: c1 lai
 !*****************************************************
 !
 ! This function computes the "one order" of scattering by the leaves only
@@ -3378,6 +3435,7 @@ SUBROUTINE RHO_1_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_1_nad, &
   REAL :: xli
   REAL, DIMENSION(nbdirsmax) :: xli_fwv
   REAL :: ki, ke, xga, xc1, rc_d
+  REAL, DIMENSION(nbdirsmax) :: xc1_fwv
   REAL :: xg1, xg2, sum, x_hp, xl
   REAL, DIMENSION(nbdirsmax) :: sum_fwv, x_hp_fwv, xl_fwv
   REAL :: c1
@@ -3386,6 +3444,8 @@ SUBROUTINE RHO_1_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_1_nad, &
   REAL, DIMENSION(nbdirsmax) :: lai_fwv
   INTEGER :: number, ild
   REAL :: teta_0, phi_0
+  REAL :: x_lambda_x
+  REAL, DIMENSION(nbdirsmax) :: x_lambda_x_fwv
 !     MVO::added type declarations
   REAL, EXTERNAL :: G_ROSS, GEO, HOT_SPOT, GAMMA_LEAF
   INTEGER :: k, n_c
@@ -3394,14 +3454,13 @@ SUBROUTINE RHO_1_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_1_nad, &
   COMMON /feuille/ tl, rl, lai
   COMMON /i/ number, ild
   COMMON /angle_sol/ teta_0, phi_0
-  INTRINSIC INT
   INTRINSIC COS
   INTRINSIC ABS
   REAL :: abs0
   REAL :: abs1
-  REAL :: arg1
   REAL :: result1
   REAL :: pwr1
+  REAL, DIMENSION(nbdirsmax) :: pwr1_fwv
   REAL :: pwx2
   REAL, DIMENSION(nbdirsmax) :: pwx2_fwv
   REAL :: pwr2
@@ -3415,8 +3474,11 @@ SUBROUTINE RHO_1_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_1_nad, &
   COMMON /feuille_fwv/ lai_fwv
   COMMON /hp_fwv/ c1_fwv
 !
-  arg1 = lai/x_lambda_i
-  n_c = INT(arg1)
+  n_c = 1000
+  DO nd=1,nbdirs
+    x_lambda_x_fwv(nd) = lai_fwv(nd)/n_c
+  END DO
+  x_lambda_x = lai/n_c
   xg1 = G_ROSS(teta_0)
   xg2 = G_ROSS(teta_e)
   x1 = COS(teta_0)
@@ -3431,26 +3493,36 @@ SUBROUTINE RHO_1_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_1_nad, &
 !  3D phase function
 !
   xga = GAMMA_LEAF(teta_0, phi_0, teta_e, phi_e)
-  xc1 = 1. - x_lambda_i*ki
   result1 = GEO(teta_e, teta_0, phi_e, phi_0)
   DO nd=1,nbdirs
+    xc1_fwv(nd) = -(ki*x_lambda_x_fwv(nd))
     xli_fwv(nd) = c1_fwv(nd)/result1
   END DO
+  xc1 = 1. - x_lambda_x*ki
   xli = c1/result1
   sum = 0.
   DO nd=1,nbdirs
     sum_fwv(nd) = 0.D0
   END DO
   DO k=1,n_c
-    xl = x_lambda_i*k
     DO nd=1,nbdirs
-      xl_fwv(nd) = 0.D0
+      xl_fwv(nd) = k*x_lambda_x_fwv(nd)
+      IF (xc1 .GT. 0.D0 .OR. (xc1 .LT. 0.D0 .AND. k .EQ. INT(k))) THEN
+        pwr1_fwv(nd) = k*xc1**(k-1)*xc1_fwv(nd)
+      ELSE IF (xc1 .EQ. 0.D0 .AND. k .EQ. 1.0) THEN
+        pwr1_fwv(nd) = xc1_fwv(nd)
+      ELSE
+        pwr1_fwv(nd) = 0.D0
+      END IF
     END DO
+    xl = x_lambda_x*k
     CALL HOT_SPOT_FWV0(xl, xl_fwv, xli, xli_fwv, x_hp, x_hp_fwv, nbdirs)
     pwr1 = xc1**k
-    pwx2 = 1. - x_lambda_i*ke*x_hp
+    pwx2 = 1. - x_lambda_x*ke*x_hp
+    pwr2 = pwx2**k
     DO nd=1,nbdirs
-      pwx2_fwv(nd) = -(x_lambda_i*ke*x_hp_fwv(nd))
+      pwx2_fwv(nd) = -(ke*(x_lambda_x_fwv(nd)*x_hp+x_lambda_x*x_hp_fwv(&
+&       nd)))
       IF (pwx2 .GT. 0.D0 .OR. (pwx2 .LT. 0.D0 .AND. k .EQ. INT(k))) THEN
         pwr2_fwv(nd) = k*pwx2**(k-1)*pwx2_fwv(nd)
       ELSE IF (pwx2 .EQ. 0.D0 .AND. k .EQ. 1.0) THEN
@@ -3458,10 +3530,10 @@ SUBROUTINE RHO_1_NAD_FWV0(teta_e, phi_e, x_lambda_i, rho_1_nad, &
       ELSE
         pwr2_fwv(nd) = 0.D0
       END IF
-      sum_fwv(nd) = sum_fwv(nd) + pwr1*x_lambda_i*pwr2_fwv(nd)
+      sum_fwv(nd) = sum_fwv(nd) + (pwr1_fwv(nd)*x_lambda_x+pwr1*&
+&       x_lambda_x_fwv(nd))*pwr2 + pwr1*x_lambda_x*pwr2_fwv(nd)
     END DO
-    pwr2 = pwx2**k
-    sum = sum + pwr1*x_lambda_i*pwr2
+    sum = sum + pwr1*x_lambda_x*pwr2
   END DO
   x2 = COS(teta_0)
   IF (x2 .GE. 0.) THEN

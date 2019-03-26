@@ -181,7 +181,7 @@ contains
     integer :: iostat
     logical :: exist
     real(kind=8) :: lon, lat
-    real(kind=8) :: s, lai_coeff
+    real(kind=8) :: s, lai_coeff_kv, lai_coeff_kh
     real :: rsl1
     character(len=4) :: mode
     namelist /site_params/ &
@@ -192,7 +192,8 @@ contains
          bulk,&
          freq,&
          s,&
-         lai_coeff,&
+         lai_coeff_kv,&
+         lai_coeff_kh,&
          omega,&
          mode,&
          rsl1,&
@@ -219,9 +220,7 @@ contains
        endif
        close(iounit)
 
-       !-- mapping to retrieval system variables
-       !   (i.e. map variable names as used in namelist to
-       !    those defined in the retrieval tool)
+       !-- map variable names from namelist to those used in retrieval system:
        sfc_rms_height = s
        rsl1_default   = rsl1
 
@@ -318,7 +317,7 @@ subroutine getprior_s1(n, x, sx)
   x(1:nparam_s1) = xpr(1:nparam_s1)
   sx(1:nparam_s1) = sxpr(1:nparam_s1)
 
-  j = nparam_s1+1    ! pos in full control vector
+  j    = nparam_s1+1 ! pos in full control vector
   i_s1 = nparam_s1+1 ! pos in S1 restricted control vector
   do i=1,npts
      if( idx_is_s1(i) ) then
@@ -358,7 +357,7 @@ subroutine getprior_s2(n, x, sx)
      stop
   endif
 
-  j = nparam_s1+1    ! pos in full control vector
+  j    = nparam_s1+1 ! pos in full control vector
   i_s2 = 1           ! pos in S2 restricted control vector
   do i=1,npts
      if( idx_is_s2(i) ) then

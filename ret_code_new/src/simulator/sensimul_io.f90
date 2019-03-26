@@ -1572,10 +1572,10 @@ logical function ncwrt_controlvector(fname, n, x, sx, optiflag) result(succeed)
 
   !-- remap 1D state vector
   np = get_np()
-  if( np.ne.1 ) then
-     write(*, '(a)') ' FATAL::ncwrt_controlvector:actually only nparam=1 is supported!'
-     stop
-  endif
+  ! if( np.ne.1 ) then
+  !    write(*, '(a)') ' FATAL::ncwrt_controlvector:actually only nparam=1 is supported!'
+  !    stop
+  ! endif
 
   allocate( ctlvec_params(np), ctlvec_params_unc(np) )
   allocate( statev(nsc,npts), stateuncv(nsc,npts) )

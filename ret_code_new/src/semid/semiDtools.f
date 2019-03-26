@@ -24,6 +24,7 @@ C
       real tl,rl,lai
       integer number,ild
       real teta_0,phi_0
+      real x_lambda_x
 C     MVO::added type declarations
       real, external :: G_ross, Geo, hot_spot
       integer i, n_c
@@ -35,12 +36,13 @@ c
       common/i/number,ild
       common/angle_sol/teta_0,phi_0
 c
-      n_c=int(lai/x_lambda_i)
+      n_c=1000
+      x_lambda_x=lai/n_c
       xg1=G_ross(teta_0)
       xg2=G_ross(teta_e)
       Ki=xg1/abs(cos(teta_0))
       Ke=xg2/cos(teta_e)
-      xs1=(1.-x_lambda_i*Ki)**n_c
+      xs1=(1.-x_lambda_x*Ki)**n_c
       xs2=1.
       xLi=c1/Geo(teta_e,teta_0,phi_e,phi_0)
 c
@@ -49,7 +51,7 @@ c
       xh_p=hot_spot(Lai,xLi)
 c
       do i=1,n_c
-      xs2=xs2*(1.-x_lambda_i*Ke*xh_p)
+      xs2=xs2*(1.-x_lambda_x*Ke*xh_p)
       enddo
       rho_0_nad=Rs*xs2*xs1
       return
@@ -74,6 +76,7 @@ c
       real tl,rl,lai
       integer number,ild
       real teta_0,phi_0
+      real x_lambda_x
 C     MVO::added type declarations
       real, external :: G_ross, Geo, hot_spot, Gamma_leaf
       integer k, n_c
@@ -83,7 +86,8 @@ c
       common/i/number,ild
       common/angle_sol/teta_0,phi_0
 c
-      n_c=int(lai/x_lambda_i)
+      n_c=1000
+      x_lambda_x=lai/n_c
       xg1=G_ross(teta_0)
       xg2=G_ross(teta_e)
       Ki=xg1/abs(cos(teta_0))
@@ -92,14 +96,14 @@ c
 c  3D phase function
 c
       xga=Gamma_leaf(teta_0,phi_0,teta_e,phi_e)
-      xc1=(1.-x_lambda_i*Ki)
+      xc1=(1.-x_lambda_x*Ki)
       xLi=c1/Geo(teta_e,teta_0,phi_e,phi_0)
       sum=0.
       do k=1,n_c
-      xL=x_lambda_i*k
+      xL=x_lambda_x*k
       x_hp=hot_spot(xL,xLi)
-      sum=sum+xc1**k*x_lambda_i*
-     *(1.-x_lambda_i*Ke*x_hp)**k
+      sum=sum+xc1**k*x_lambda_x*
+     *(1.-x_lambda_x*Ke*x_hp)**k
       enddo
       rho_1_nad=sum/(cos(teta_e)*abs(cos(teta_0)))*xga
       return

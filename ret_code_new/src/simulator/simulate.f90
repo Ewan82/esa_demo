@@ -32,15 +32,15 @@ subroutine simulate_s1_1geom( statev, iv_geom, bscat )
   ! externals
   external sigma0_vhvv !core SENSE routine
   ! local declarations
-  real(kind=8) :: lai_coeff, lai, hc, sm
+  real(kind=8) :: lai_coeff(2), lai, hc, sm
   real(kind=8) :: s0vh, s0vv
   real(kind=8) :: vza_deg  !-- S1 viewing zenith angle
 
   !-- map state variables
-  lai_coeff = statev(1)
-  lai       = statev(2)
-  hc        = statev(3)
-  sm        = statev(4)
+  lai_coeff = statev(1:2) !-- H,V polarisation
+  lai       = statev(3)
+  hc        = statev(4)
+  sm        = statev(5)
   !--
   vza_deg   = iv_geom(3)
   !-- convert to RAD

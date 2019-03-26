@@ -134,11 +134,13 @@ class RetrievalSetup(object):
                                           ('vza',      []),
                                           ('vaa',      [])  ] )
         #-- prior control vector and uncertainties
-        self.lai_coeff     = kwargs.get('laicoeff',0.1)
-        self.lai_coeff_unc = self.lai_coeff 
+        self.lai_coeff_kv  = kwargs.get('lai_coeff_kv',0.1)
+        self.lai_coeff_kh  = kwargs.get('lai_coeff_kh',0.1)
+        self.lai_coeff_kv_unc = self.lai_coeff_kv
+        self.lai_coeff_kh_unc = self.lai_coeff_kh
         self.prstate       = None #-- becomes numpy array
         self.prstate_unc   = None #-- becomes numpy array
-        self.generic_prior     = [1.5, 1.5, 0.3] #LAI[m2/m2], canht[m], SM[m3/m3]
+        self.generic_prior     = [1.5, 1.5, 0.3]  # [1.5, 0.5, 0.25] #LAI[m2/m2], canht[m], SM[m3/m3]
         self.generic_prior_unc = [5.0, 2.0, 0.2] #LAI[m2/m2], canht[m], SM[m3/m3]
         #--
         self.prior_states_file = kwargs.get('prior_states_file', None)
@@ -895,14 +897,17 @@ class RetrievalSetup(object):
             FileLogger.fatal(msg)
             raise RuntimeError(msg)
         if lai_coeff_absunc!=None:
-            self.lai_coeff_unc    = np.maximum( lai_coeff_absunc, self.lai_coeff_uncfloor )
-            msg = "applied absolute uncertainty on lai coefficient, "
+            self.lai_coeff_kv_unc    = np.maximum( lai_coeff_absunc, self.lai_coeff_uncfloor )
+            self.lai_coeff_kh_unc    = np.maximum( lai_coeff_absunc, self.lai_coeff_uncfloor )
+            msg = "applied absolute uncertainty on lai coefficients, "
             msg += "lai_coeff_absunc={}".format(lai_coeff_absunc)
             FileLogger.info(msg)
         else:
-            self.lai_coeff_unc    = np.maximum( self.lai_coeff*self.lai_coeff_relunc,
-                                                self.lai_coeff_uncfloor               )
-            msg = "applied relative uncertainty {} on lai coefficient.".format(
+            self.lai_coeff_kv_unc    = np.maximum( self.lai_coeff_kv*self.lai_coeff_relunc,
+                                                   self.lai_coeff_uncfloor                  )
+            self.lai_coeff_kh_unc    = np.maximum( self.lai_coeff_kh*self.lai_coeff_relunc,
+                                                   self.lai_coeff_uncfloor                  )
+            msg = "applied relative uncertainty {} on lai coefficients.".format(
                 self.lai_coeff_relunc)
             FileLogger.info(msg)
 
@@ -1280,7 +1285,7 @@ def ncwrt_retrieval_prior(retr_setup, outname=None):
     ncfp = nc4.Dataset(act_outname, 'w')
     #-- add dimensions
     d1 = ncfp.createDimension('npoints',npts)
-    d2 = ncfp.createDimension('nparam_s1',1)
+    d2 = ncfp.createDimension('nparam_s1',2)
 
     #-- time-value
     ncvar = ncfp.createVariable( 'time', statevector.dtype, ('npoints',),
@@ -1290,22 +1295,23 @@ def ncwrt_retrieval_prior(retr_setup, outname=None):
     ncvar.setncattr('units', time_unit)
     ncvar[:] = time_values[:]
 
-    #-- S1 lai_coeff
+    #-- S1 lai_coeff (_kv, _kh)
     ncvar = ncfp.createVariable( 'param_s1', np.float64, ('nparam_s1',),
                                  zlib=use_zlib, complevel=zlev               )
     ncvar.setncattr('long_name', 'model parameter involved in simulation of S1 signal')
-    ncvar[:] = retr_setup.lai_coeff
+    ncvar.setncattr('comment', "coefficient of lai entering calculation of extinction and volume scattering (V and H polarisation)")
+    ncvar[:] = np.array([retr_setup.lai_coeff_kv, retr_setup.lai_coeff_kh])
     #-- S1 parameter uncertainty
     ncvar = ncfp.createVariable( 'param_unc_s1', np.float64, ('nparam_s1',),
                                  zlib=use_zlib, complevel=zlev               )
     ncvar.setncattr('long_name', '1-sigma uncertainty of model parameter involved in simulation of S1 signal')
     #-- check consistency
-    if retr_setup.lai_coeff_unc==None:
+    if retr_setup.lai_coeff_kv_unc==None or retr_setup.lai_coeff_kh_unc==None:
         msg = "uncertainty of LAI coefficient has not been set. This is an internal error!"
         FileLogger.fatal(msg)
         raise RuntimeError(msg)
     else:
-        ncvar[:] = retr_setup.lai_coeff_unc
+        ncvar[:] = np.array( [retr_setup.lai_coeff_kv_unc, retr_setup.lai_coeff_kh_unc] )
 
     #-- LAI
     ncvar = ncfp.createVariable( 'lai', statevector.dtype, ('npoints',),
@@ -1874,14 +1880,8 @@ def pre_synthetic(options):
     FileLogger.info(msg)
 
     #-- copy attributes
-    setup_dct['lon']       = site_dct['lon']
-    setup_dct['lat']       = site_dct['lat']
-    setup_dct['lai_coeff'] = site_dct['lai_coeff']
-
-    #-- copy attributes
-    setup_dct['lon']       = site_dct['lon']
-    setup_dct['lat']       = site_dct['lat']
-    setup_dct['lai_coeff'] = site_dct['lai_coeff']
+    for k in ['lon','lat','lai_coeff_kv','lai_coeff_kh']:
+        setup_dct[k] = site_dct[k]
 
     #-- retrieval system control
     setup_dct['use_prior'] = options.use_prior
@@ -2031,9 +2031,8 @@ def pre_general(options):
         print "-"*30
 
     #-- copy attributes
-    setup_dct['lon']       = site_dct['lon']
-    setup_dct['lat']       = site_dct['lat']
-    setup_dct['lai_coeff'] = site_dct['lai_coeff']
+    for k in ['lon','lat','lai_coeff_kv','lai_coeff_kh']:
+        setup_dct[k] = site_dct[k]
 
     #-- extra target points
     setup_dct['target_select']   = options.target_select

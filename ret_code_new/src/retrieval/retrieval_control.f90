@@ -141,8 +141,8 @@ subroutine getbounds(n, nbd, lx, ux)
        'sm_lobound=',sm_lobound,'sm_hibound=',sm_hibound
 
   !-- bounds on lai_coeff
-  lx(1) = lai_coeff_lobound
-  ux(1) = lai_coeff_hibound
+  lx(1:nparam_s1) = lai_coeff_lobound
+  ux(1:nparam_s1) = lai_coeff_hibound
 
   !-- LAI bounds, 1st component
   lx(nparam_s1+1:n:nsc) = lai_lobound

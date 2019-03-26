@@ -22,8 +22,9 @@ module mo_sensimul
   integer, parameter :: nsc   = 3 !number of state-vector components (per 'time-point')
                                   !(LAI,HC,SM) for now
 
-  integer, parameter :: nparam_s1 = 1      ! #parameters involved in S1 simulation
-                                           !  (lai-coefficient relating optical to MW LAI)
+  integer, parameter :: nparam_s1 = 2      ! #parameters involved in S1 simulation
+                                           !  (lai-coefficient relating optical to MW LAI,
+                                           !   horizonal and vertical pol.)
   integer, parameter :: nparam_s2 = 0      ! #parameters involved in S2 simulation
 
 
@@ -55,6 +56,7 @@ module mo_sensimul
   !--
   real(kind=8), parameter :: sim_fill_value = -99999._8
 
+  !-----------------------------
   !-- p r e p a r a t i o n   o f   s y n t h e t i c   d a t a
   !-- S1: we apply an uncertainty of 0.4dB (as suggested by BR, ref. PM7 notes)
   real(kind=8), parameter :: s1unc_db = 0.4_8
@@ -68,9 +70,9 @@ module mo_sensimul
   !-- using 5% relative uncertainty of BRF=0.01 as floor value:
   real(kind=8), parameter :: syn_s2unc_floor = 0.01_8*syn_s2unc_rel
   !-- preparation of failure scenarios
-  character(len=2)     :: s1_failure_pol = '' !-- of ['','vh','vv']
+  character(len=2)     :: s1_failure_pol = ''       !-- of ['','vh','vv']
   character(len=3)     :: s1_failure_satellite = '' !-- 'S1','S1A','S1B'
-  logical, allocatable :: s2_failure_bands(:) !-- nb_s2
+  logical, allocatable :: s2_failure_bands(:)       !-- nb_s2
   character(len=3)     :: s2_failure_satellite = '' !-- 'S2','S2A','S2B'
 
 
@@ -109,7 +111,6 @@ contains
 
     !-- initialise operator for optical domain
     call semid_init(s2_srf_file, solar_spect_file)
-
   end subroutine simulator_init
 
 

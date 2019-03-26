@@ -1,0 +1,17 @@
+obs_s2: /home/users/if910917/projects/ret_tool_subprocess/S2/mni_s2_542_high_b4b5b6b7b8b8a.csv
+ctlvec_relunc: [0.01, 0.5, 0.05, 0.5]
+obs_s1: /home/users/if910917/projects/ret_tool_subprocess/S1/mni_s1_542_high_hv.csv
+time_start: 20170323
+site_nml: /home/users/if910917/projects/ret_tool_subprocess/site_new_test.nml
+ctlvec_uncfloor: [0.001, 3.0, 0.1, 0.05]
+states_file: False
+gtol: 1.0
+s1_vv_uncfloor: 0.004
+s2_uncfloor: 0.02
+no_use_prior: False
+time_end: 20170720
+dynmodunc_inifile: /home/users/if910917/projects/ret_tool_subprocess/mod_ini/dynmod_vtight.ini
+s1_vh_uncfloor: 1e-05
+no_use_states: False
+s2_relunc: 0.05
+s1_unc: 1.6

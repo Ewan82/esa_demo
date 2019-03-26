@@ -17,26 +17,27 @@
 !
 !> @brief compute extinction coefficients from LAI (microwave) and single-scattering albedo
 !
-!> @param[in]  omega   single scattering albedo
-!> @param[in]  lai_mw  Leaf-Area Index (MW-compliant)
-!> @param[out] ke_h
-!> @param[out] ke_v
-!> @param[out] ks_h
-!> @param[out] ks_v
+!> @param[in]  omega     single scattering albedo
+!> @param[in]  lai       Leaf-Area Index
+!> @param[in]  lai_coeff coefficient of LAI (separate for V and H) entering the extinction/volume coefficients
+!> @param[out] ke_v      volume extinction coefficient (ver. pol) [Np/m]
+!> @param[out] ke_h      volume extinction coefficient (hor. pol) [Np/m]
+!> @param[out] ks_v      volume scattering coefficient (ver. pol) [Np/m]
+!> @param[out] ks_h      volume scattering coefficient (hor. pol) [Np/m]
 !
 ! Ref: sense/canopy.py, l21 ff.
 !      simulator.py, l100 ff.
 !
-subroutine canopy_extinction_coeffs( omega, lai_mw, ke_v, ke_h, ks_v, ks_h )
+subroutine canopy_extinction_coeffs( omega, lai, lai_coeff, ke_v, ke_h, ks_v, ks_h )
   implicit none
   ! arguments
-  real(kind=8), intent(in) :: omega, lai_mw
+  real(kind=8), intent(in) :: omega, lai, lai_coeff(2)
   real(kind=8), intent(out) :: ke_h, ke_v, ks_h, ks_v
 
-  ke_h = lai_mw
-  ke_v = lai_mw
-  ks_h = omega*lai_mw
-  ks_v = omega*lai_mw
+  ke_v = lai*lai_coeff(1)
+  ke_h = lai*lai_coeff(2)
+  ks_v = omega*lai*lai_coeff(1)
+  ks_h = omega*lai*lai_coeff(2)
 end subroutine canopy_extinction_coeffs
 
 
@@ -80,7 +81,7 @@ end subroutine canopy_transmissivity
 
 
 !***********************************************************
-!     canopy_transmissivity
+!     canopy_sigma_c
 !
 !> @brief calculate canopy volume contribution only (Eq. 11.10 + 11.16 as seen in 11.17, Ulaby (2014))
 !
@@ -99,7 +100,8 @@ subroutine canopy_sigma_c(sigma_vol_back, theta, ke_v, ke_h, t_v, t_h, s0c)
 
   !-- VV
   s0c(2) = (1._8 - t_v*t_v)*(sigma_vol_back(2)*cos(theta))/(ke_v + ke_v)
-  
+
+  !-- HV
   if( sigma_vol_back(3).eq.sense_fv ) then
      s0c(3) = sense_fv
   else
