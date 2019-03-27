@@ -1,0 +1,17 @@
+&site_params
+    lat = 12.88
+    lon = 48.684
+    clay = 0.23
+    sand = 0.27
+    bulk = 1.65
+    freq = 5.405
+    s = 0.015
+    lai_coeff_kv = 0.099
+    lai_coeff_kh = 0.099
+    omega = 0.1
+    mode = 'fast'
+    rsl1 = 0.2
+    sm_coeff = 0.5
+    cab = 55.0
+    cw = 0.01
+/
