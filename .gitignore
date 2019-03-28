@@ -1,3 +1,3 @@
-*.nc
 *.pyc
 .idea/
+.binder_setup

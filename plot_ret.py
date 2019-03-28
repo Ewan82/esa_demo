@@ -35,6 +35,14 @@ def find_nearest_idx_tol(array, value, tol=dt.timedelta(days=1.)):
 
 
 def plot_var_paper(var, _dir='ret_code', axes=None, point='508_med'):
+    """
+    Function which plots the output of the retrieval tool, including site level observations for comparison.
+    :param var: which variable to plot, lai, sm or canht (str)
+    :param _dir: directory of retrieval tool output (str)
+    :param axes: axes to plot on, if None new axes generated (obj)
+    :param point: which point to plot field data from (str)
+    :return: figure and axes of plot (obj)
+    """
     post = nc.Dataset(_dir+'/controlvector_post.nc', 'r')
     pri = nc.Dataset(_dir + '/controlvector_prior.nc', 'r')
     field_laican = mlab.csv2rec('data/field_obs/mni_lai_canht_field_'+ point + '.csv', comments='%')
@@ -57,7 +65,7 @@ def plot_var_paper(var, _dir='ret_code', axes=None, point='508_med'):
         #idx = np.where((field_laican['_date'] < sat_times[-1].date()) & (field_laican['_date'] > sat_times[0].date()))
         field_times = field_laican['_date'][:]
         field_times = np.array([dt.datetime.combine(x,dt.datetime.min.time()) for x in field_times])
-        field_ob = field_laican[var][:]
+        #field_ob = field_laican[var][:]
         t_idx = np.array([find_nearest_idx_tol(field_times, x, tol=dt.timedelta(days=2))
                           for x in sat_times])
         t_idx = t_idx[np.isnan(t_idx) == False]
