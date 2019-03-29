@@ -1,0 +1,256 @@
+ INFO::retrieval_read_ctl:read settings from file ***retrctl.nml***...
+ INFO::retrieval_read_ctl:...reading done.
+ INFO::use_prior_term: T
+ INFO::use_state_term: T
+ INFO::gradient_tolerance: .10000E+01
+ INFO::prior_pert: .00000E+00
+ INFO::runretrieval:will apply relative perturbation of prior with pert=  0.00
+ INFO::runretrieval:calling initf...
+ DEBUG::load_ivgeom:ndims= 2
+ INFO::initf:retrieval configuration was read from ***retrconfig.nc***
+ DEBUG::initf:ncrd_retrieval_config has finished, yields:npts=   6 npts_s1=   4 npts_s2=   2
+ INFO::load_sitenml:successfully read site namelist file ***site.nml***
+ INFO::setprior:prior control vector was read from ***retrprior.nc***
+ DEBUG::setprior:ncrd_retrieval_prior terminated successfully
+ INFO::runretrieval:...done.
+ DEBUG::runretrieval:initf yields:n= 20 mf= 34
+ INFO::runretrieval:calling initx...
+ INFO::runretrieval:...done.
+ INFO::state_model_set:will be setting-up simple state-model of type "mx(i+1)=a(i+1)*x(i) + b(i+1)"
+ INFO::state_model_set:reading model configuration from file ***retrmodel.nc***...
+ INFO::state_model_set:...reading done.
+ INFO::runretrieval:start optimise...
+ INFO::optimise:load control vector boundary settings by calling initb...
+ INFO::initb:bounds were read from file ***retrctlvecbounds.nml***
+ INFO::initb:applying bounds: lai_coeff_lobound=    0.000 lai_coeff_hibound=    1.000
+ INFO::initb:applying bounds: lai_lobound=    0.001 lai_hibound=   10.000
+ INFO::initb:applying bounds: canht_lobound=    0.001 canht_hibound=    4.500
+ INFO::initb:applying bounds: sm_lobound=    0.001 sm_hibound=    0.500
+ INFO::optimise:...done.
+ INFO::optimise:start optimiser...
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           20     M =            5
+
+At X0         0 variables are exactly at the bounds
+ INFO::getobs:initial loading of observations...
+ INFO::getobs:reading S1 observations from ***obs_s1.nc***
+ INFO::ncrd_obs_vector:dataset ---backscatter--- detected fill-value:-99999.00000000
+ INFO::ncrd_obs_vector:dataset ---backscatter_unc--- detected fill-value:-99999.00000000
+ INFO::ncrd_obs_vector:s1 detected data fill-values:       4
+ INFO::ncrd_obs_vector:s1 detected no uncertainthy fill-values
+ INFO::getobs:...loading S1 observations done.
+ INFO::getobs:reading S2 observations from ***obs_s2.nc***
+ INFO::ncrd_obs_vector:dataset ---brf--- detected fill-value:-99999.00000000
+ INFO::ncrd_obs_vector:dataset ---brf_unc--- detected fill-value:-99999.00000000
+ INFO::ncrd_obs_vector:s2 detected data fill-values:      11
+ INFO::ncrd_obs_vector:s2 detected unc. fill-values:      11
+ INFO::getobs:...loading observations done.
+ INFO::getobs:...initial loading done
+
+At iterate    0    f=  1.93252D+02    |proj g|=  7.42126D+00
+
+At iterate    1    f=  1.61239D+02    |proj g|=  5.85653D+00
+
+At iterate    2    f=  1.22360D+02    |proj g|=  4.72864D+00
+
+At iterate    3    f=  7.40199D+01    |proj g|=  2.15014D+00
+
+At iterate    4    f=  5.97611D+01    |proj g|=  2.16513D+00
+
+At iterate    5    f=  5.11384D+01    |proj g|=  2.15722D+00
+
+At iterate    6    f=  3.96787D+01    |proj g|=  2.09902D+00
+
+At iterate    7    f=  3.35168D+01    |proj g|=  2.40249D+00
+
+At iterate    8    f=  2.87473D+01    |proj g|=  2.37435D+00
+
+At iterate    9    f=  2.67548D+01    |proj g|=  2.47518D+00
+
+At iterate   10    f=  2.54861D+01    |proj g|=  2.44475D+00
+
+At iterate   11    f=  2.44433D+01    |proj g|=  2.45646D+00
+
+At iterate   12    f=  2.30814D+01    |proj g|=  2.52789D+00
+
+At iterate   13    f=  2.18657D+01    |proj g|=  2.62143D+00
+
+At iterate   14    f=  2.14558D+01    |proj g|=  2.65608D+00
+
+At iterate   15    f=  2.10962D+01    |proj g|=  2.70584D+00
+
+At iterate   16    f=  2.09365D+01    |proj g|=  2.71692D+00
+
+At iterate   17    f=  2.07293D+01    |proj g|=  2.73039D+00
+
+At iterate   18    f=  2.04213D+01    |proj g|=  2.74961D+00
+
+At iterate   19    f=  2.02584D+01    |proj g|=  2.91114D+00
+
+At iterate   20    f=  1.95205D+01    |proj g|=  2.89553D+00
+
+At iterate   21    f=  1.92257D+01    |proj g|=  2.92597D+00
+
+At iterate   22    f=  1.90619D+01    |proj g|=  2.97110D+00
+
+At iterate   23    f=  1.89536D+01    |proj g|=  2.97461D+00
+
+At iterate   24    f=  1.88258D+01    |proj g|=  2.96791D+00
+
+At iterate   25    f=  1.87006D+01    |proj g|=  2.93614D+00
+
+At iterate   26    f=  1.85581D+01    |proj g|=  2.87592D+00
+
+At iterate   27    f=  1.84038D+01    |proj g|=  2.82566D+00
+
+At iterate   28    f=  1.80352D+01    |proj g|=  2.70841D+00
+
+At iterate   29    f=  1.77363D+01    |proj g|=  2.64778D+00
+
+At iterate   30    f=  1.74889D+01    |proj g|=  2.59364D+00
+
+At iterate   31    f=  1.73304D+01    |proj g|=  2.53118D+00
+
+At iterate   32    f=  1.71220D+01    |proj g|=  2.49004D+00
+
+At iterate   33    f=  1.66896D+01    |proj g|=  2.33579D+00
+
+At iterate   34    f=  1.62915D+01    |proj g|=  2.26539D+00
+
+At iterate   35    f=  1.62182D+01    |proj g|=  2.27369D+00
+
+At iterate   36    f=  1.57746D+01    |proj g|=  2.26210D+00
+
+At iterate   37    f=  1.56320D+01    |proj g|=  2.27119D+00
+
+At iterate   38    f=  1.54437D+01    |proj g|=  2.27984D+00
+
+At iterate   39    f=  1.51683D+01    |proj g|=  2.28501D+00
+
+At iterate   40    f=  1.48690D+01    |proj g|=  2.28369D+00
+
+At iterate   41    f=  1.44079D+01    |proj g|=  2.27679D+00
+
+At iterate   42    f=  1.42328D+01    |proj g|=  2.25624D+00
+
+At iterate   43    f=  1.41163D+01    |proj g|=  2.24050D+00
+
+At iterate   44    f=  1.40558D+01    |proj g|=  2.23393D+00
+
+At iterate   45    f=  1.39770D+01    |proj g|=  2.22862D+00
+
+At iterate   46    f=  1.38505D+01    |proj g|=  2.21739D+00
+
+At iterate   47    f=  1.38247D+01    |proj g|=  2.22527D+00
+
+At iterate   48    f=  1.38104D+01    |proj g|=  1.76149D+00
+
+At iterate   49    f=  1.38011D+01    |proj g|=  1.49554D+00
+
+At iterate   50    f=  1.37644D+01    |proj g|=  2.22612D+00
+
+At iterate   51    f=  1.37342D+01    |proj g|=  2.04357D+00
+
+At iterate   52    f=  1.37099D+01    |proj g|=  2.04228D+00
+
+At iterate   53    f=  1.36721D+01    |proj g|=  2.17948D+00
+
+At iterate   54    f=  1.36232D+01    |proj g|=  2.16823D+00
+
+At iterate   55    f=  1.36081D+01    |proj g|=  2.17599D+00
+
+At iterate   56    f=  1.35637D+01    |proj g|=  2.16759D+00
+
+At iterate   57    f=  1.35199D+01    |proj g|=  1.73195D+00
+
+At iterate   58    f=  1.34825D+01    |proj g|=  2.17367D+00
+
+At iterate   59    f=  1.34538D+01    |proj g|=  1.96202D+00
+
+At iterate   60    f=  1.34215D+01    |proj g|=  2.18691D+00
+
+At iterate   61    f=  1.33932D+01    |proj g|=  2.18287D+00
+
+At iterate   62    f=  1.33668D+01    |proj g|=  1.69769D+00
+
+At iterate   63    f=  1.33539D+01    |proj g|=  1.39008D+00
+
+At iterate   64    f=  1.33397D+01    |proj g|=  1.98783D+00
+
+At iterate   65    f=  1.33242D+01    |proj g|=  2.14934D+00
+
+At iterate   66    f=  1.33123D+01    |proj g|=  2.14041D+00
+
+At iterate   67    f=  1.33035D+01    |proj g|=  1.10308D+00
+
+At iterate   68    f=  1.32970D+01    |proj g|=  6.37367D-01
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+   20     68     72     79     0     0   6.374D-01   1.330D+01
+  F =   13.296986620685047     
+
+CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL            
+
+ Cauchy                time 0.000E+00 seconds.
+ Subspace minimization time 1.000E-03 seconds.
+ Line search           time 1.518E+02 seconds.
+
+ Total User time 1.539E+02 seconds.
+
+ INFO::optimise:...optimiser finished.
+ INFO::runretrieval:...optimise DONE
+ INFO::runretrieval::opti_succeed: T
+ 
+        i                Prior           Posterior          Change [%]
+ 
+        1         0.990000E-01        0.990498E-01             0.05029
+        2         0.990000E-01        0.990498E-01             0.05029
+        3         0.252825E+01        0.640553E+01           153.35799
+        4         0.442140E+00        0.498509E+00            12.74908
+        5         0.309975E+00        0.185110E+00           -40.28239
+        6         0.258017E+01        0.642025E+01           148.83021
+        7         0.452296E+00        0.528199E+00            16.78157
+        8         0.323681E+00        0.181966E+00           -43.78223
+        9         0.263017E+01        0.643082E+01           144.50242
+       10         0.462467E+00        0.490275E+00             6.01301
+       11         0.328420E+00        0.188450E+00           -42.61931
+       12         0.273449E+01        0.644657E+01           135.75005
+       13         0.484750E+00        0.504705E+00             4.11651
+       14         0.315962E+00        0.216387E+00           -31.51483
+       15         0.288216E+01        0.646747E+01           124.39711
+       16         0.515529E+00        0.518849E+00             0.64399
+       17         0.311549E+00        0.228191E+00           -26.75603
+       18         0.288216E+01        0.649060E+01           125.19933
+       19         0.515529E+00        0.441430E+00           -14.37339
+       20         0.311549E+00        0.229009E+00           -26.49331
+ INFO::writing final control vector to x.b
+ INFO::writing prior uncertainty (physical units) to sx.b
+ INFO::runretrieval:start uncertainty analysis on state...
+ 
+ INFO::ua:SVD done with ierr =          0
+ 
+ INFO::runretrieval:...uncertainty analysis on state DONE
+ 
+       Extreme off diagonal correlations
+            Min/Max                 value    i    j
+                Min              -0.01116   15   13
+                Max               0.34190   20   17
+ 
+ INFO::finishdf:resulting file ***controlvector_prior.nc*** successfully written.
+ INFO::finishdf:resulting file ***controlvector_post.nc*** successfully written.

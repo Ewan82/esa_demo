@@ -1,0 +1,541 @@
+ INFO::retrieval_read_ctl:read settings from file ***retrctl.nml***...
+ INFO::retrieval_read_ctl:...reading done.
+ INFO::use_prior_term: T
+ INFO::use_state_term: T
+ INFO::gradient_tolerance: .10000E+01
+ INFO::prior_pert: .00000E+00
+ INFO::runretrieval:will apply relative perturbation of prior with pert=  0.00
+ INFO::runretrieval:calling initf...
+ DEBUG::load_ivgeom:ndims= 2
+ INFO::initf:retrieval configuration was read from ***retrconfig.nc***
+ DEBUG::initf:ncrd_retrieval_config has finished, yields:npts=  75 npts_s1=  65 npts_s2=  10
+ INFO::load_sitenml:successfully read site namelist file ***site.nml***
+ INFO::setprior:prior control vector was read from ***retrprior.nc***
+ DEBUG::setprior:ncrd_retrieval_prior terminated successfully
+ INFO::runretrieval:...done.
+ DEBUG::runretrieval:initf yields:n=227 mf=260
+ INFO::runretrieval:calling initx...
+ INFO::runretrieval:...done.
+ INFO::state_model_set:will be setting-up simple state-model of type "mx(i+1)=a(i+1)*x(i) + b(i+1)"
+ INFO::state_model_set:reading model configuration from file ***retrmodel.nc***...
+ INFO::state_model_set:...reading done.
+ INFO::runretrieval:start optimise...
+ INFO::optimise:load control vector boundary settings by calling initb...
+ INFO::initb:bounds were read from file ***retrctlvecbounds.nml***
+ INFO::initb:applying bounds: lai_coeff_lobound=    0.000 lai_coeff_hibound=    1.000
+ INFO::initb:applying bounds: lai_lobound=    0.001 lai_hibound=   10.000
+ INFO::initb:applying bounds: canht_lobound=    0.001 canht_hibound=    4.500
+ INFO::initb:applying bounds: sm_lobound=    0.001 sm_hibound=    0.500
+ INFO::optimise:...done.
+ INFO::optimise:start optimiser...
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =          227     M =            5
+
+At X0         0 variables are exactly at the bounds
+ INFO::getobs:initial loading of observations...
+ INFO::getobs:reading S1 observations from ***obs_s1.nc***
+ INFO::ncrd_obs_vector:dataset ---backscatter--- detected fill-value:-99999.00000000
+ INFO::ncrd_obs_vector:dataset ---backscatter_unc--- detected fill-value:-99999.00000000
+ INFO::ncrd_obs_vector:s1 detected data fill-values:      65
+ INFO::ncrd_obs_vector:s1 detected no uncertainthy fill-values
+ INFO::getobs:...loading S1 observations done.
+ INFO::getobs:reading S2 observations from ***obs_s2.nc***
+ INFO::ncrd_obs_vector:dataset ---brf--- detected fill-value:-99999.00000000
+ INFO::ncrd_obs_vector:dataset ---brf_unc--- detected fill-value:-99999.00000000
+ INFO::ncrd_obs_vector:s2 detected data fill-values:      70
+ INFO::ncrd_obs_vector:s2 detected unc. fill-values:      70
+ INFO::getobs:...loading observations done.
+ INFO::getobs:...initial loading done
+
+At iterate    0    f=  3.44130D+02    |proj g|=  3.88565D+00
+
+At iterate    1    f=  3.27739D+02    |proj g|=  3.85418D+00
+
+At iterate    2    f=  3.04343D+02    |proj g|=  3.82626D+00
+
+At iterate    3    f=  2.90878D+02    |proj g|=  3.53830D+00
+
+At iterate    4    f=  2.76763D+02    |proj g|=  3.31390D+00
+
+At iterate    5    f=  2.64602D+02    |proj g|=  3.31046D+00
+
+At iterate    6    f=  2.52020D+02    |proj g|=  3.01281D+00
+
+At iterate    7    f=  2.40400D+02    |proj g|=  3.15153D+00
+
+At iterate    8    f=  2.33118D+02    |proj g|=  3.31128D+00
+
+At iterate    9    f=  2.28575D+02    |proj g|=  3.30821D+00
+
+At iterate   10    f=  2.24565D+02    |proj g|=  2.90408D+00
+
+At iterate   11    f=  2.21133D+02    |proj g|=  3.31266D+00
+
+At iterate   12    f=  2.17713D+02    |proj g|=  3.31909D+00
+
+At iterate   13    f=  2.16829D+02    |proj g|=  3.31667D+00
+
+At iterate   14    f=  2.14088D+02    |proj g|=  2.99057D+00
+
+At iterate   15    f=  2.13313D+02    |proj g|=  2.94960D+00
+
+At iterate   16    f=  2.11973D+02    |proj g|=  3.31340D+00
+
+At iterate   17    f=  2.10488D+02    |proj g|=  3.29267D+00
+
+At iterate   18    f=  2.09996D+02    |proj g|=  3.32558D+00
+
+At iterate   19    f=  2.08979D+02    |proj g|=  3.31703D+00
+
+At iterate   20    f=  2.08616D+02    |proj g|=  3.31690D+00
+
+At iterate   21    f=  2.08063D+02    |proj g|=  3.31956D+00
+
+At iterate   22    f=  2.07586D+02    |proj g|=  3.32262D+00
+
+At iterate   23    f=  2.07065D+02    |proj g|=  2.84010D+00
+
+At iterate   24    f=  2.06774D+02    |proj g|=  2.66251D+00
+
+At iterate   25    f=  2.06286D+02    |proj g|=  3.32351D+00
+
+At iterate   26    f=  2.05737D+02    |proj g|=  3.31026D+00
+
+At iterate   27    f=  2.05058D+02    |proj g|=  3.32806D+00
+
+At iterate   28    f=  2.04373D+02    |proj g|=  3.03210D+00
+
+At iterate   29    f=  2.03709D+02    |proj g|=  3.24227D+00
+
+At iterate   30    f=  2.03042D+02    |proj g|=  3.32816D+00
+
+At iterate   31    f=  2.02313D+02    |proj g|=  3.27718D+00
+
+At iterate   32    f=  2.01372D+02    |proj g|=  3.29546D+00
+
+At iterate   33    f=  2.00711D+02    |proj g|=  3.32431D+00
+
+At iterate   34    f=  1.99950D+02    |proj g|=  3.32431D+00
+
+At iterate   35    f=  1.99474D+02    |proj g|=  3.32829D+00
+
+At iterate   36    f=  1.99156D+02    |proj g|=  2.97021D+00
+
+At iterate   37    f=  1.98985D+02    |proj g|=  2.72336D+00
+
+At iterate   38    f=  1.98727D+02    |proj g|=  3.26696D+00
+
+At iterate   39    f=  1.98623D+02    |proj g|=  3.27579D+00
+
+At iterate   40    f=  1.98479D+02    |proj g|=  2.82019D+00
+
+At iterate   41    f=  1.98354D+02    |proj g|=  2.68126D+00
+
+At iterate   42    f=  1.98240D+02    |proj g|=  3.09487D+00
+
+At iterate   43    f=  1.98037D+02    |proj g|=  3.24242D+00
+
+At iterate   44    f=  1.97828D+02    |proj g|=  3.09333D+00
+
+At iterate   45    f=  1.97683D+02    |proj g|=  2.22477D+00
+
+At iterate   46    f=  1.97375D+02    |proj g|=  2.72483D+00
+
+At iterate   47    f=  1.97119D+02    |proj g|=  3.12983D+00
+
+At iterate   48    f=  1.96854D+02    |proj g|=  3.05513D+00
+
+At iterate   49    f=  1.96701D+02    |proj g|=  2.55786D+00
+
+At iterate   50    f=  1.96588D+02    |proj g|=  3.08484D+00
+
+At iterate   51    f=  1.96451D+02    |proj g|=  2.93870D+00
+
+At iterate   52    f=  1.96368D+02    |proj g|=  3.33300D+00
+
+At iterate   53    f=  1.96116D+02    |proj g|=  3.07699D+00
+
+At iterate   54    f=  1.95965D+02    |proj g|=  2.74035D+00
+
+At iterate   55    f=  1.95843D+02    |proj g|=  2.73758D+00
+
+At iterate   56    f=  1.95620D+02    |proj g|=  3.33300D+00
+
+At iterate   57    f=  1.95479D+02    |proj g|=  3.33300D+00
+
+At iterate   58    f=  1.95347D+02    |proj g|=  2.39447D+00
+
+At iterate   59    f=  1.95217D+02    |proj g|=  3.33193D+00
+
+At iterate   60    f=  1.95053D+02    |proj g|=  3.33205D+00
+
+At iterate   61    f=  1.94919D+02    |proj g|=  3.10709D+00
+
+At iterate   62    f=  1.94656D+02    |proj g|=  3.33082D+00
+
+At iterate   63    f=  1.94565D+02    |proj g|=  2.90371D+00
+
+At iterate   64    f=  1.94473D+02    |proj g|=  2.41360D+00
+
+At iterate   65    f=  1.94349D+02    |proj g|=  3.09208D+00
+
+At iterate   66    f=  1.94244D+02    |proj g|=  3.32209D+00
+
+At iterate   67    f=  1.94112D+02    |proj g|=  2.21730D+00
+
+At iterate   68    f=  1.94003D+02    |proj g|=  2.19648D+00
+
+At iterate   69    f=  1.93889D+02    |proj g|=  2.29104D+00
+
+At iterate   70    f=  1.93801D+02    |proj g|=  3.33300D+00
+
+At iterate   71    f=  1.93595D+02    |proj g|=  2.34806D+00
+
+At iterate   72    f=  1.93524D+02    |proj g|=  2.39601D+00
+
+At iterate   73    f=  1.93423D+02    |proj g|=  2.15375D+00
+
+At iterate   74    f=  1.93266D+02    |proj g|=  3.25536D+00
+
+At iterate   75    f=  1.93231D+02    |proj g|=  3.20641D+00
+
+At iterate   76    f=  1.92992D+02    |proj g|=  2.91401D+00
+
+At iterate   77    f=  1.92913D+02    |proj g|=  2.52806D+00
+
+At iterate   78    f=  1.92777D+02    |proj g|=  2.70974D+00
+
+At iterate   79    f=  1.92610D+02    |proj g|=  3.26324D+00
+
+At iterate   80    f=  1.92526D+02    |proj g|=  3.27395D+00
+
+At iterate   81    f=  1.92386D+02    |proj g|=  2.33815D+00
+
+At iterate   82    f=  1.92322D+02    |proj g|=  2.15781D+00
+
+At iterate   83    f=  1.92238D+02    |proj g|=  2.20668D+00
+
+At iterate   84    f=  1.92187D+02    |proj g|=  3.19506D+00
+
+At iterate   85    f=  1.92119D+02    |proj g|=  2.08691D+00
+
+At iterate   86    f=  1.92069D+02    |proj g|=  1.34330D+00
+
+At iterate   87    f=  1.92026D+02    |proj g|=  2.18279D+00
+
+At iterate   88    f=  1.91997D+02    |proj g|=  2.56111D+00
+
+At iterate   89    f=  1.91968D+02    |proj g|=  1.25934D+00
+
+At iterate   90    f=  1.91936D+02    |proj g|=  1.75113D+00
+
+At iterate   91    f=  1.91909D+02    |proj g|=  2.48686D+00
+
+At iterate   92    f=  1.91875D+02    |proj g|=  3.14778D+00
+
+At iterate   93    f=  1.91825D+02    |proj g|=  2.03708D+00
+
+At iterate   94    f=  1.91803D+02    |proj g|=  1.38352D+00
+
+At iterate   95    f=  1.91779D+02    |proj g|=  1.56495D+00
+
+At iterate   96    f=  1.91729D+02    |proj g|=  2.00392D+00
+
+At iterate   97    f=  1.91692D+02    |proj g|=  3.26808D+00
+
+At iterate   98    f=  1.91638D+02    |proj g|=  1.41783D+00
+
+At iterate   99    f=  1.91611D+02    |proj g|=  1.28563D+00
+
+At iterate  100    f=  1.91583D+02    |proj g|=  1.54467D+00
+
+At iterate  101    f=  1.91565D+02    |proj g|=  3.17205D+00
+
+At iterate  102    f=  1.91517D+02    |proj g|=  1.34367D+00
+
+At iterate  103    f=  1.91498D+02    |proj g|=  1.19781D+00
+
+At iterate  104    f=  1.91482D+02    |proj g|=  1.22433D+00
+
+At iterate  105    f=  1.91461D+02    |proj g|=  1.61003D+00
+
+At iterate  106    f=  1.91450D+02    |proj g|=  1.43673D+00
+
+At iterate  107    f=  1.91442D+02    |proj g|=  7.75326D-01
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+  227    107    110    214     0     0   7.753D-01   1.914D+02
+  F =   191.44162378333633     
+
+CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL            
+
+ Cauchy                time 3.000E-03 seconds.
+ Subspace minimization time 5.000E-03 seconds.
+ Line search           time 1.151E+03 seconds.
+
+ Total User time 1.161E+03 seconds.
+
+ INFO::optimise:...optimiser finished.
+ INFO::runretrieval:...optimise DONE
+ INFO::runretrieval::opti_succeed: T
+ 
+        i                Prior           Posterior          Change [%]
+ 
+        1         0.990000E-01        0.989424E-01            -0.05818
+        2         0.990000E-01        0.989424E-01            -0.05818
+        3         0.441327E-01        0.368041E-02           -91.66057
+        4         0.120428E-01        0.122883E-01             2.03811
+        5         0.347753E+00        0.252364E+00           -27.43026
+        6         0.485221E-01        0.339445E-02           -93.00433
+        7         0.129968E-01        0.129408E-01            -0.43143
+        8         0.348924E+00        0.254648E+00           -27.01896
+        9         0.524306E-01        0.290766E-02           -94.45427
+       10         0.134109E-01        0.135150E-01             0.77663
+       11         0.345354E+00        0.230180E+00           -33.34971
+       12         0.543993E-01        0.230888E-02           -95.75568
+       13         0.136279E-01        0.146517E-01             7.51231
+       14         0.343127E+00        0.224488E+00           -34.57583
+       15         0.563609E-01        0.126383E-02           -97.75762
+       16         0.138427E-01        0.161161E-01            16.42306
+       17         0.346668E+00        0.206796E+00           -40.34757
+       18         0.649718E-01        0.513502E-01           -20.96541
+       19         0.159656E-01        0.177472E-01            11.15894
+       20         0.342955E+00        0.192891E+00           -43.75612
+       21         0.707025E-01        0.101049E+00            42.92095
+       22         0.171600E-01        0.177832E-01             3.63182
+       23         0.342849E+00        0.198761E+00           -42.02666
+       24         0.841624E-01        0.150781E+00            79.15533
+       25         0.199601E-01        0.202524E-01             1.46461
+       26         0.333038E+00        0.244006E+00           -26.73305
+       27         0.109136E+00        0.201063E+00            84.23137
+       28         0.247971E-01        0.257791E-01             3.96024
+       29         0.312644E+00        0.224540E+00           -28.18045
+       30         0.122422E+00        0.250566E+00           104.67442
+       31         0.277510E-01        0.277493E-01            -0.00597
+       32         0.309221E+00        0.229433E+00           -25.80283
+       33         0.150876E+00        0.300043E+00            98.86750
+       34         0.338387E-01        0.328121E-01            -3.03360
+       35         0.301909E+00        0.238095E+00           -21.13667
+       36         0.167931E+00        0.348156E+00           107.32114
+       37         0.374647E-01        0.386302E-01             3.11082
+       38         0.297822E+00        0.235876E+00           -20.79968
+       39         0.194056E+00        0.395327E+00           103.71853
+       40         0.418298E-01        0.444918E-01             6.36388
+       41         0.293420E+00        0.216787E+00           -26.11741
+       42         0.209858E+00        0.440731E+00           110.01359
+       43         0.445428E-01        0.449916E-01             1.00760
+       44         0.286674E+00        0.220852E+00           -22.96053
+       45         0.246718E+00        0.485776E+00            96.89533
+       46         0.511293E-01        0.506871E-01            -0.86481
+       47         0.273636E+00        0.263811E+00            -3.59059
+       48         0.315573E+00        0.530929E+00            68.24253
+       49         0.635445E-01        0.631066E-01            -0.68907
+       50         0.255697E+00        0.259889E+00             1.63934
+       51         0.348822E+00        0.576158E+00            65.17252
+       52         0.701010E-01        0.689642E-01            -1.62168
+       53         0.255179E+00        0.261348E+00             2.41755
+       54         0.404974E+00        0.621865E+00            53.55677
+       55         0.794734E-01        0.770543E-01            -3.04387
+       56         0.257360E+00        0.263434E+00             2.36020
+       57         0.435873E+00        0.667643E+00            53.17352
+       58         0.849324E-01        0.870203E-01             2.45831
+       59         0.260618E+00        0.261248E+00             0.24155
+       60         0.493118E+00        0.712544E+00            44.49769
+       61         0.938362E-01        0.963340E-01             2.66186
+       62         0.252598E+00        0.262210E+00             3.80526
+       63         0.522584E+00        0.756643E+00            44.78862
+       64         0.976442E-01        0.109180E+00            11.81442
+       65         0.245702E+00        0.265969E+00             8.24863
+       66         0.556274E+00        0.800472E+00            43.89893
+       67         0.102348E+00        0.195363E+00            90.88057
+       68         0.238892E+00        0.302926E+00            26.80482
+       69         0.596008E+00        0.936890E+00            57.19436
+       70         0.108636E+00        0.120863E+00            11.25473
+       71         0.235695E+00        0.303154E+00            28.62148
+       72         0.731591E+00        0.107445E+01            46.86444
+       73         0.131707E+00        0.125643E+00            -4.60424
+       74         0.226796E+00        0.301654E+00            33.00657
+       75         0.772941E+00        0.121352E+01            57.00050
+       76         0.137942E+00        0.134218E+00            -2.69943
+       77         0.225348E+00        0.301010E+00            33.57597
+       78         0.877373E+00        0.135324E+01            54.23800
+       79         0.155593E+00        0.148809E+00            -4.35971
+       80         0.222617E+00        0.285046E+00            28.04344
+       81         0.932739E+00        0.149275E+01            60.03934
+       82         0.164872E+00        0.162401E+00            -1.49897
+       83         0.232103E+00        0.283864E+00            22.30079
+       84         0.103091E+01        0.163187E+01            58.29481
+       85         0.180274E+00        0.185715E+00             3.01848
+       86         0.244426E+00        0.251892E+00             3.05427
+       87         0.108118E+01        0.176890E+01            63.60803
+       88         0.188150E+00        0.184083E+00            -2.16207
+       89         0.243668E+00        0.254646E+00             4.50566
+       90         0.118494E+01        0.190734E+01            60.96450
+       91         0.204601E+00        0.201738E+00            -1.39956
+       92         0.250179E+00        0.264562E+00             5.74934
+       93         0.137109E+01        0.204736E+01            49.32303
+       94         0.236957E+00        0.245428E+00             3.57486
+       95         0.246779E+00        0.240855E+00            -2.40070
+       96         0.143644E+01        0.218569E+01            52.15977
+       97         0.248157E+00        0.242622E+00            -2.23065
+       98         0.244743E+00        0.245362E+00             0.25273
+       99         0.158390E+01        0.232518E+01            46.80138
+      100         0.274241E+00        0.263898E+00            -3.77136
+      101         0.245864E+00        0.274387E+00            11.60108
+      102         0.164780E+01        0.246500E+01            49.59325
+      103         0.284550E+00        0.283964E+00            -0.20605
+      104         0.261356E+00        0.274609E+00             5.07099
+      105         0.178610E+01        0.260500E+01            45.84894
+      106         0.308740E+00        0.311054E+00             0.74934
+      107         0.272274E+00        0.278728E+00             2.37049
+      108         0.185356E+01        0.274427E+01            48.05402
+      109         0.320080E+00        0.297493E+00            -7.05664
+      110         0.271983E+00        0.281238E+00             3.40270
+      111         0.185356E+01        0.288686E+01            55.74706
+      112         0.320080E+00        0.249403E+00           -22.08123
+      113         0.271983E+00        0.281236E+00             3.40207
+      114         0.199266E+01        0.300745E+01            50.92613
+      115         0.344369E+00        0.327250E+00            -4.97115
+      116         0.297883E+00        0.297272E+00            -0.20525
+      117         0.219677E+01        0.313213E+01            42.57891
+      118         0.380658E+00        0.379791E+00            -0.22754
+      119         0.280487E+00        0.286631E+00             2.19035
+      120         0.226628E+01        0.325757E+01            43.74089
+      121         0.393085E+00        0.384940E+00            -2.07206
+      122         0.282672E+00        0.287816E+00             1.81985
+      123         0.239786E+01        0.338599E+01            41.20886
+      124         0.417248E+00        0.401783E+00            -3.70649
+      125         0.275133E+00        0.282956E+00             2.84345
+      126         0.252825E+01        0.351617E+01            39.07540
+      127         0.442140E+00        0.412372E+00            -6.73286
+      128         0.309975E+00        0.254470E+00           -17.90630
+      129         0.258017E+01        0.362640E+01            40.54863
+      130         0.452296E+00        0.486894E+00             7.64928
+      131         0.323681E+00        0.252711E+00           -21.92598
+      132         0.263017E+01        0.372907E+01            41.78089
+      133         0.462467E+00        0.457866E+00            -0.99475
+      134         0.328420E+00        0.258948E+00           -21.15338
+      135         0.273449E+01        0.383473E+01            40.23538
+      136         0.484750E+00        0.471588E+00            -2.71512
+      137         0.315962E+00        0.310118E+00            -1.84978
+      138         0.288216E+01        0.394207E+01            36.77499
+      139         0.515529E+00        0.482228E+00            -6.45944
+      140         0.311549E+00        0.330634E+00             6.12591
+      141         0.288216E+01        0.405270E+01            40.61353
+      142         0.515529E+00        0.403193E+00           -21.79042
+      143         0.311549E+00        0.330591E+00             6.11206
+      144         0.290296E+01        0.408292E+01            40.64679
+      145         0.513875E+00        0.487129E+00            -5.20483
+      146         0.301204E+00        0.332645E+00            10.43822
+      147         0.299586E+01        0.411746E+01            37.43854
+      148         0.534161E+00        0.522666E+00            -2.15204
+      149         0.302519E+00        0.342107E+00            13.08618
+      150         0.306439E+01        0.415387E+01            35.55292
+      151         0.547509E+00        0.543850E+00            -0.66833
+      152         0.321568E+00        0.348646E+00             8.42068
+      153         0.306892E+01        0.419019E+01            36.53622
+      154         0.549337E+00        0.532673E+00            -3.03351
+      155         0.328723E+00        0.349475E+00             6.31313
+      156         0.309887E+01        0.422784E+01            36.43173
+      157         0.563161E+00        0.523542E+00            -7.03521
+      158         0.319140E+00        0.342293E+00             7.25473
+      159         0.311371E+01        0.426709E+01            37.04209
+      160         0.570552E+00        0.374178E+00           -34.41822
+      161         0.316023E+00        0.313568E+00            -0.77706
+      162         0.312669E+01        0.415330E+01            32.83362
+      163         0.584056E+00        0.563059E+00            -3.59497
+      164         0.316184E+00        0.330014E+00             4.37380
+      165         0.311881E+01        0.403897E+01            29.50329
+      166         0.587412E+00        0.570658E+00            -2.85219
+      167         0.320726E+00        0.332171E+00             3.56839
+      168         0.304989E+01        0.392801E+01            28.79191
+      169         0.581863E+00        0.567524E+00            -2.46436
+      170         0.313160E+00        0.348340E+00            11.23369
+      171         0.296607E+01        0.382139E+01            28.83675
+      172         0.582892E+00        0.580161E+00            -0.46869
+      173         0.300396E+00        0.347280E+00            15.60761
+      174         0.291964E+01        0.371413E+01            27.21219
+      175         0.574196E+00        0.560012E+00            -2.47024
+      176         0.299439E+00        0.348325E+00            16.32580
+      177         0.283392E+01        0.360855E+01            27.33446
+      178         0.570805E+00        0.549621E+00            -3.71110
+      179         0.302894E+00        0.353151E+00            16.59221
+      180         0.269074E+01        0.350327E+01            30.19741
+      181         0.548079E+00        0.503026E+00            -8.22033
+      182         0.295987E+00        0.350179E+00            18.30899
+      183         0.261584E+01        0.334597E+01            27.91202
+      184         0.538977E+00        0.522028E+00            -3.14479
+      185         0.287908E+00        0.351825E+00            22.20024
+      186         0.256371E+01        0.319077E+01            24.45917
+      187         0.539338E+00        0.523202E+00            -2.99167
+      188         0.291769E+00        0.352801E+00            20.91802
+      189         0.241034E+01        0.303930E+01            26.09419
+      190         0.521650E+00        0.509379E+00            -2.35237
+      191         0.311384E+00        0.356296E+00            14.42312
+      192         0.219976E+01        0.289167E+01            31.45375
+      193         0.494039E+00        0.486798E+00            -1.46570
+      194         0.296406E+00        0.349699E+00            17.97956
+      195         0.214689E+01        0.274801E+01            27.99923
+      196         0.494246E+00        0.472031E+00            -4.49475
+      197         0.300095E+00        0.348832E+00            16.24056
+      198         0.191997E+01        0.260743E+01            35.80593
+      199         0.435975E+00        0.432454E+00            -0.80751
+      200         0.291322E+00        0.311680E+00             6.98809
+      201         0.191997E+01        0.246873E+01            28.58149
+      202         0.435975E+00        0.399805E+00            -8.29640
+      203         0.291322E+00        0.308583E+00             5.92484
+      204         0.173733E+01        0.237454E+01            36.67750
+      205         0.389565E+00        0.635546E-01           -83.68576
+      206         0.290998E+00        0.253250E+00           -12.97187
+      207         0.162377E+01        0.221650E+01            36.50333
+      208         0.363741E+00        0.345375E+00            -5.04913
+      209         0.297839E+00        0.253516E+00           -14.88145
+      210         0.155984E+01        0.205497E+01            31.74277
+      211         0.350380E+00        0.343017E+00            -2.10143
+      212         0.306192E+00        0.259456E+00           -15.26376
+      213         0.147848E+01        0.189541E+01            28.20002
+      214         0.345579E+00        0.333268E+00            -3.56259
+      215         0.296879E+00        0.308330E+00             3.85694
+      216         0.130935E+01        0.173817E+01            32.75051
+      217         0.313776E+00        0.308519E+00            -1.67555
+      218         0.288546E+00        0.331437E+00            14.86445
+      219         0.117358E+01        0.158198E+01            34.80016
+      220         0.277880E+00        0.269472E+00            -3.02555
+      221         0.285066E+00        0.332542E+00            16.65446
+      222         0.999020E+00        0.142738E+01            42.87800
+      223         0.232690E+00        0.230847E+00            -0.79226
+      224         0.296474E+00        0.343572E+00            15.88594
+      225         0.999020E+00        0.127377E+01            27.50172
+      226         0.232690E+00        0.201576E+00           -13.37141
+      227         0.296474E+00        0.343639E+00            15.90860
+ INFO::writing final control vector to x.b
+ INFO::writing prior uncertainty (physical units) to sx.b
+ INFO::runretrieval:start uncertainty analysis on state...
+ 
+ INFO::ua:SVD done with ierr =          0
+ 
+ INFO::runretrieval:...uncertainty analysis on state DONE
+ 
+       Extreme off diagonal correlations
+            Min/Max                 value    i    j
+                Min              -0.09139  227  226
+                Max               0.45660  227  224
+ 
+ INFO::finishdf:resulting file ***controlvector_prior.nc*** successfully written.
+ INFO::finishdf:resulting file ***controlvector_post.nc*** successfully written.

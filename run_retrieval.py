@@ -3,11 +3,6 @@ import subprocess
 import os
 import sys
 import shutil as sh
-import itertools as itt
-import matplotlib.pyplot as plt
-import glob
-import netCDF4 as nc
-import plot_ret as pr
 
 
 def find_nearest(array, value):

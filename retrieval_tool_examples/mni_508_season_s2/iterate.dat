@@ -1,0 +1,68 @@
+RUNNING THE L-BFGS-B CODE
+
+it    = iteration number
+nf    = number of function evaluations
+nseg  = number of segments explored during the Cauchy search
+nact  = number of active bounds at the generalized Cauchy point
+sub   = manner in which the subspace minimization terminated:
+        con = converged, bnd = a bound was reached
+itls  = number of iterations performed in the line search
+stepl = step length used
+tstep = norm of the displacement (total step)
+projg = norm of the projected gradient
+f     = function value
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =           32     M =            5
+
+   it   nf  nseg  nact  sub  itls  stepl    tstep     projg        f
+    0    1     -     -   -     -     -        -     2.833D+00  1.185D+03
+    1    2    20    19  ---    0  1.0D+00  1.1D+01  3.333D+00  5.507D+02
+    2    3     1     0  con    0  1.0D+00  8.1D-01  3.289D+00  5.260D+02
+    3    4     1     0  con    0  1.0D+00  4.4D+00  2.895D+00  3.357D+02
+    4    6     1     0  bnd    1  1.5D-01  2.5D+00  2.546D+00  2.535D+02
+    5    8     1     0  bnd    1  1.2D-01  9.4D-01  2.302D+00  2.505D+02
+    6   10     1     0  con    1  3.8D-01  1.6D+00  2.041D+00  1.988D+02
+    7   11     1     0  con    0  1.0D+00  7.0D-01  2.793D+00  1.795D+02
+    8   12     1     0  con    0  1.0D+00  1.2D+00  2.588D+00  1.695D+02
+    9   13     1     0  con    0  1.0D+00  2.7D-01  2.584D+00  1.640D+02
+   10   14     1     0  con    0  1.0D+00  1.3D-01  2.687D+00  1.616D+02
+   11   15     1     0  con    0  1.0D+00  2.2D-01  2.692D+00  1.595D+02
+   12   16     1     0  con    0  1.0D+00  2.4D-01  2.252D+00  1.585D+02
+   13   17     1     0  con    0  1.0D+00  1.4D-01  2.272D+00  1.583D+02
+   14   18     1     0  con    0  1.0D+00  1.4D-01  2.340D+00  1.581D+02
+   15   19     1     0  con    0  1.0D+00  1.8D-01  2.367D+00  1.578D+02
+   16   20     1     0  con    0  1.0D+00  2.2D-01  2.542D+00  1.576D+02
+   17   21     1     0  con    0  1.0D+00  3.5D-01  2.559D+00  1.571D+02
+   18   22     1     0  con    0  1.0D+00  7.5D-01  2.687D+00  1.561D+02
+   19   24     1     0  con    1  4.3D-01  5.5D-01  2.568D+00  1.557D+02
+   20   25     1     0  con    0  1.0D+00  3.2D-01  2.246D+00  1.552D+02
+   21   26     1     0  con    0  1.0D+00  5.1D-02  1.480D+00  1.551D+02
+   22   27     1     0  con    0  1.0D+00  3.1D-02  1.877D+00  1.551D+02
+   23   28     1     0  con    0  1.0D+00  2.9D-02  1.457D+00  1.550D+02
+   24   29     1     0  con    0  1.0D+00  1.9D-02  1.445D+00  1.550D+02
+   25   30     1     0  con    0  1.0D+00  1.6D-02  1.461D+00  1.550D+02
+   26   31     1     0  con    0  1.0D+00  5.7D-02  1.722D+00  1.550D+02
+   27   32     1     0  con    0  1.0D+00  1.0D-01  2.072D+00  1.549D+02
+   28   33     1     0  con    0  1.0D+00  1.4D-01  2.254D+00  1.548D+02
+   29   34     1     0  con    0  1.0D+00  9.0D-02  2.252D+00  1.547D+02
+   30   35     1     0  con    0  1.0D+00  2.6D-01  1.903D+00  1.546D+02
+   31   36     1     0  con    0  1.0D+00  4.1D-01  2.235D+00  1.545D+02
+   32   37     1     0  con    0  1.0D+00  6.2D-02  1.881D+00  1.543D+02
+   33   38     1     0  con    0  1.0D+00  1.9D-02  1.094D+00  1.543D+02
+   34   39     1     0  con    0  1.0D+00  2.2D-02  1.035D+00  1.543D+02
+   35   40     1     0  con    0  1.0D+00  4.5D-02  1.204D+00  1.543D+02
+   36   42     1     0  con    1  2.7D-01  6.3D-02  1.867D+00  1.543D+02
+   37   43     1     0  con    0  1.0D+00  6.1D-02  1.473D+00  1.542D+02
+   38   44     1     0  con    0  1.0D+00  7.8D-02  1.470D+00  1.542D+02
+   39   45     1     0  con    0  1.0D+00  1.1D-01  1.567D+00  1.542D+02
+   40   46     1     0  con    0  1.0D+00  1.5D-01  1.870D+00  1.541D+02
+   41   47     1     0  con    0  1.0D+00  9.7D-02  1.120D+00  1.541D+02
+   42   48     1     0  con    0  1.0D+00  4.5D-02  5.946D-01  1.541D+02
+
+CONVERGENCE: NORM_OF_PROJECTED_GRADIENT_<=_PGTOL            
+
+ Total User time 5.066E+02 seconds.
+

@@ -1,7 +1,8 @@
 import numpy as np
-import smac
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+from copy import copy
+import signaturesimulator as ss
 
 
 S2_band_labels = ['1', '2', '3', '4', '5', '6', '7', '8', '8a', '9', '10', '11', '12']
@@ -81,3 +82,19 @@ def plot_ndvi(sim_class, line_type='-'):
     plt.ylabel('NDVI')
     plt.xlabel('Date')
     return 'plotted'
+
+
+def sentinel2_wavl(mission="a"):
+    sim=ss.Simulator()
+    if mission == "a":
+        fname = sim.dir_path+"/data/srf/s2a.srf"
+    else:
+        fname = sim.dir_path+"/data/srf/s2b.srf"
+    wavl=[]
+    for n in xrange(0, 13):
+        tmp = np.loadtxt(fname, delimiter=" ", usecols=(n))
+        idx = np.argmax(tmp)
+        wavl.append(400+idx)
+    wavl = np.array(wavl)
+    wavl_sub = np.delete(wavl, [0,9,10])
+    return wavl_sub
