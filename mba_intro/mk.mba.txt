@@ -1,0 +1,3 @@
+mba: runua.x $(RETRCONFIG_FILE) $(RETRPRIOR_FILE) $(RETRMODEL_FILE) $(RETRCTL_FILE) $(SITE_FILE)
+	./runua.x $(MBAARGXTRA) 2>&1 | tee mk.mba.log
+
