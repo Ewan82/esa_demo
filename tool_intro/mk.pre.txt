@@ -1,0 +1,31 @@
+
+pregeneral:
+	$(MAKE) pre PRE_MODE=pre_general
+.PHONY: pregeneral
+
+presynthetic:
+	$(MAKE) pre PRE_MODE=pre_synthetic
+.PHONY: presynthetic
+
+
+pre:
+	( args="";   \
+          if [ "x$(PRE_MODE)" = "xpre_synthetic" ]; then \
+            args="--time_start $(TIMSTART) --time_end $(TIMEND)"; \
+            if [ "x$(NOXTGT)" = "x" ]; \
+            then \
+              args="$${args} --target_schedule $(TGTSCHEDULE_FILE)"; \
+            fi; \
+	    if [ "x$(MISSION_LST)" != "x" ]; \
+            then \
+	      args="$${args} --mission_lst $(MISSION_LST)"; \
+            fi; \
+          fi; \
+          args="$${args} $(PREARGXTRA)"; \
+	  $(RS_PRE_TOOL) $(PRE_MODE) $${args} 2>&1 | tee mk.$@.log; \
+        )
+
+RS_PRE_TOOL     := bin/rs_pre.py
+TIMSTART        := 20170501
+TIMEND          := 20170531
+TGTSCHEDULE_FILE := input/target_schedule_2017.txt
