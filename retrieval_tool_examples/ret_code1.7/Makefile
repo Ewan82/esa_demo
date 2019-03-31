@@ -552,7 +552,7 @@ libsupport:
 	$(MAKE) -B $(LIBSUPPORT)
 .PHONY: libsupport
 
-$(LIBLBFGSB): FORCE
+$(LIBLBFGSB):
 	@mkdir -p $(LIBDIR)
 	$(MAKE) -C $(LIBLBFGSBDIR) ../$@ FC="$(FC)" FFLAGS="$(FFLAGS)" LIBNAME="../$@"
 
@@ -560,7 +560,7 @@ liblbfgsb:
 	$(MAKE) -B $(LIBLBFGSB)
 .PHONY: liblbfgsb
 
-$(LIBEIS): FORCE
+$(LIBEIS):
 	@mkdir -p $(LIBDIR)
 	$(MAKE) -C $(LIBEISDIR) ../$@ FC=$(FC) FFLAGS="$(FFLAGS)" LIBNAME="../$@"
 libeis:
