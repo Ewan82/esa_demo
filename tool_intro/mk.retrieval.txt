@@ -1,0 +1,2 @@
+retrieval: runretrieval.x $(RETRCONFIG_FILE) $(RETRPRIOR_FILE) $(RETRMODEL_FILE) $(RETRCTL_FILE) $(SITE_FILE)
+	./runretrieval.x $(RETRARGXTRA) 2>&1 | tee mk.retrieval.log

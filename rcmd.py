@@ -23,7 +23,10 @@ def run_command(command):
                 print(output)
             else:
                 # print output.strip()
-                print output
+                if output[-1]=='\n':
+                    print output[:-1]
+                else:
+                    print output
         if outerr:
             print (outerr.strip())
     rc = process.poll()

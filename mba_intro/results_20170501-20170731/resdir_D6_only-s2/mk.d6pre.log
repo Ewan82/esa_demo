@@ -1,0 +1,29 @@
+2019-03-31 08:02:06,698 INFO::<module>:: rs_pre.py::PROGRAM START::2019-03-31T08:02:06.697999
+2019-03-31 08:02:06,698 INFO::<module>:: command-line: bin/rs_pre.py pre_synthetic --time_start 20170501 --time_end 20170731 --target_schedule target_schedule_d6.txt --use_generic_prior --mission_lst S2A S2B
+2019-03-31 08:02:06,702 INFO::main:: user selection +++pre_synthetic+++
+2019-03-31 08:02:06,702 INFO::pre_synthetic:: 'site.nml' was created as copy of Wallerfing default namelist file ***/home/michael/.local/lib/python2.7/site-packages/signaturesimulator/site.nml***
+2019-03-31 08:02:06,702 INFO::pre_synthetic:: START reading namelist ***site.nml***...
+2019-03-31 08:02:06,703 INFO::pre_synthetic:: ...reading DONE
+2019-03-31 08:02:06,705 INFO::pre_synthetic:: operating for temporal range 2017-05-01T00:00:00 - 2017-07-31T23:59:59 (num_days=91)
+2019-03-31 08:02:06,705 INFO::pre_synthetic:: selected mission_lst: ['S2A', 'S2B']
+2019-03-31 08:02:06,706 INFO::load_obs_csv:: observation data loaded from file ***/home/michael/work/iLab-svn/projects/s1+2/retrieval_paper/input/mni_s2_508_med_2017.csv***
+2019-03-31 08:02:06,707 INFO::load_obs_csv:: detected ntimepts=21 #columns=21 in csv file
+2019-03-31 08:02:06,707 INFO::load_obs_csv:: start reading S2 observations...
+2019-03-31 08:02:06,707 INFO::_read_target_schedule:: target schedule will be read from file ***target_schedule_d6.txt***
+2019-03-31 08:02:06,709 INFO::_read_target_schedule:: ...reading target schedule DONE (nxtgt=58)
+2019-03-31 08:02:06,709 INFO::setup_common_schedule:: determined ntpts=67
+2019-03-31 08:02:06,709 INFO::setup_common_schedule:: common schedule yields time-points  S1A=0 S1B=0 S2A=6 S2B=3 other=58
+2019-03-31 08:02:06,709 INFO::_set_priorunc:: applied relative uncertainty 1.0 on lai coefficients.
+2019-03-31 08:02:06,709 INFO::_set_priorunc:: applied absolute uncertainty on state vector components, lai_absunc=5.0 canht_absunc=2.0 sm_absunc=0.2
+2019-03-31 08:02:06,709 INFO::_set_priorunc:: uncertainty floor values were applied as follows: lai_uncfloor=0.001 canht_uncfloor=0.001 sm_uncfloor=0.001
+2019-03-31 08:02:06,710 INFO::set_dynmodel:: Applying default values on dynamical model uncertainties.
+2019-03-31 08:02:06,711 INFO::ncwrt_retrieval_config:: Start writing configuration file ***retrconfig.nc***...
+2019-03-31 08:02:06,713 INFO::ncwrt_retrieval_config:: ...writing ***retrconfig.nc*** DONE
+2019-03-31 08:02:06,713 INFO::ncwrt_retrieval_prior:: Start writing configuration file ***retrprior.nc***...
+2019-03-31 08:02:06,718 INFO::ncwrt_retrieval_prior:: ...writing ***retrprior.nc*** DONE
+2019-03-31 08:02:06,718 INFO::ncwrt_retrieval_model:: Start writing configuration file ***retrmodel.nc***...
+2019-03-31 08:02:06,722 INFO::ncwrt_retrieval_model:: ...writing ***retrmodel.nc*** DONE
+2019-03-31 08:02:06,722 INFO::wrt_nml_retrieval_control:: Start writing configuration file ***retrctl.nml***...
+2019-03-31 08:02:06,722 INFO::wrt_nml_retrieval_control:: ...writing ***retrctl.nml*** DONE
+2019-03-31 08:02:06,722 INFO::wrt_nml_controlvector_bounds:: Start writing configuration file ***retrctlvecbounds.nml***...
+2019-03-31 08:02:06,722 INFO::wrt_nml_controlvector_bounds:: ...writing ***retrctlvecbounds.nml*** DONE

@@ -1,0 +1,10 @@
+nos2: simulate.x runretrieval.x
+	$(MAKE) clean_exp
+	$(MAKE) presynthetic MISSION_LST="S1A S1B"
+	$(MAKE) synthetic
+	$(MAKE) retrieval
+	$(MAKE) save_exp SAVDIR=resdir_$(EXPV)_$@
+
+
+runretrieval.x: $(OBJDIR)/runretrieval.o $(LIBRETR) $(LIBDERIV) $(LIBMODEL) $(LIBSUPPORT) $(LIBLBFGSB) $(LIBEIS)
+	$(FC) -o $@ $(FFOPTI) $^ $(LDNCLIB)
