@@ -45,3 +45,49 @@ def plot_state(var, _dir='ret_code', axes=None):
         fig.autofmt_xdate()
     plt.legend(frameon=True, fancybox=True, framealpha=0.5)
     return ret_val
+
+
+def plot_iterate(itfile, var='fct', axes=None):
+    """
+    Function which plots the output retrieval iteration logfile 'iterate.dat'
+    :param itfle: name of log file (str)
+    :param axes: axes to plot on, if None new axes generated (obj)
+    :return: figure and axes of plot (obj)
+    """
+    if axes is None:
+        fig, ax = plt.subplots()
+        ret_val = fig, ax
+    else:
+       ax = axes
+       ret_val = ax
+
+    projg_lst = []
+    fct_lst = []
+    with open(itfile,'r') as fp:
+        do_parse = False
+        for line in fp:
+            if do_parse:
+                tokens = line.split()
+                if not len(tokens)==10:
+                    break
+                else:
+                    projg = float(tokens[8].replace('D','E'))
+                    projg_lst.append(projg)
+                    fct   = float(tokens[9].replace('D','E'))
+                    fct_lst.append(fct)
+            elif line.find('it   nf  nseg  nact  sub  itls  stepl    tstep     projg        f')>=0:
+                do_parse = True
+                
+    niter = len(fct_lst)
+#    print niter
+    it_index = np.arange(1,niter+1)
+    if var=='fct':
+        ax.plot(it_index, fct_lst, label='fct value', color='r', marker='o')
+    elif var=='grad':
+        ax.plot(it_index, projg_lst, label='gradient', color='b', marker='o')
+    ax.set_xlabel('Iteration index')
+    ax.set_ylabel('gradient')
+    if axes is None:
+        fig.autofmt_xdate()
+    plt.legend(frameon=True, fancybox=True, framealpha=0.5)
+    return ret_val

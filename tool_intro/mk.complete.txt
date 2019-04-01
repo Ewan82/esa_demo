@@ -1,0 +1,6 @@
+complete: simulate.x runretrieval.x
+	$(MAKE) clean_exp
+	$(MAKE) presynthetic
+	$(MAKE) synthetic
+	$(MAKE) retrieval
+	$(MAKE) save_exp SAVDIR=resdir_$(EXPV)_$@
