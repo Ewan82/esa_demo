@@ -1,0 +1,35 @@
+2019-03-31 09:39:28,691 INFO::<module>:: rs_pre.py::PROGRAM START::2019-03-31T09:39:28.691226
+2019-03-31 09:39:28,691 INFO::<module>:: command-line: bin/rs_pre.py pre_synthetic --time_start 20170501 --time_end 20170731 --target_schedule target_schedule_d6.txt --use_generic_prior --mission_lst S1A S1B S2A
+2019-03-31 09:39:28,695 INFO::main:: user selection +++pre_synthetic+++
+2019-03-31 09:39:28,695 INFO::pre_synthetic:: 'site.nml' was created as copy of Wallerfing default namelist file ***/home/michael/.local/lib/python2.7/site-packages/signaturesimulator/site.nml***
+2019-03-31 09:39:28,695 INFO::pre_synthetic:: START reading namelist ***site.nml***...
+2019-03-31 09:39:28,696 INFO::pre_synthetic:: ...reading DONE
+2019-03-31 09:39:28,698 INFO::pre_synthetic:: operating for temporal range 2017-05-01T00:00:00 - 2017-07-31T23:59:59 (num_days=91)
+2019-03-31 09:39:28,698 INFO::pre_synthetic:: selected mission_lst: ['S1A', 'S1B', 'S2A']
+2019-03-31 09:39:28,701 INFO::load_obs_csv:: observation data loaded from file ***/home/michael/work/iLab-svn/projects/s1+2/retrieval_paper/input/mni_s1_508_med_2017.csv***
+2019-03-31 09:39:28,702 INFO::load_obs_csv:: detected ntimepts=177 #columns=10 in csv file
+2019-03-31 09:39:28,703 INFO::load_obs_csv:: start reading S1 observations...
+2019-03-31 09:39:28,703 INFO::load_obs_csv:: observation data loaded from file ***/home/michael/work/iLab-svn/projects/s1+2/retrieval_paper/input/mni_s2_508_med_2017.csv***
+2019-03-31 09:39:28,703 INFO::load_obs_csv:: detected ntimepts=21 #columns=21 in csv file
+2019-03-31 09:39:28,703 INFO::load_obs_csv:: start reading S2 observations...
+2019-03-31 09:39:28,704 INFO::load_obs_csv:: observation at date 2017-07-08T10:10 is from mission=S2B and ignored here.
+2019-03-31 09:39:28,704 INFO::load_obs_csv:: observation at date 2017-07-18T10:10 is from mission=S2B and ignored here.
+2019-03-31 09:39:28,704 INFO::load_obs_csv:: observation at date 2017-07-21T10:20 is from mission=S2B and ignored here.
+2019-03-31 09:39:28,704 INFO::_read_target_schedule:: target schedule will be read from file ***target_schedule_d6.txt***
+2019-03-31 09:39:28,704 INFO::_read_target_schedule:: ...reading target schedule DONE (nxtgt=14)
+2019-03-31 09:39:28,704 INFO::setup_common_schedule:: determined ntpts=67
+2019-03-31 09:39:28,704 INFO::setup_common_schedule:: common schedule yields time-points  S1A=25 S1B=22 S2A=6 S2B=0 other=14
+2019-03-31 09:39:28,705 INFO::_set_priorunc:: applied relative uncertainty 1.0 on lai coefficients.
+2019-03-31 09:39:28,705 INFO::_set_priorunc:: applied absolute uncertainty on state vector components, lai_absunc=5.0 canht_absunc=2.0 sm_absunc=0.2
+2019-03-31 09:39:28,705 INFO::_set_priorunc:: uncertainty floor values were applied as follows: lai_uncfloor=0.001 canht_uncfloor=0.001 sm_uncfloor=0.001
+2019-03-31 09:39:28,706 INFO::set_dynmodel:: Applying default values on dynamical model uncertainties.
+2019-03-31 09:39:28,706 INFO::ncwrt_retrieval_config:: Start writing configuration file ***retrconfig.nc***...
+2019-03-31 09:39:28,709 INFO::ncwrt_retrieval_config:: ...writing ***retrconfig.nc*** DONE
+2019-03-31 09:39:28,709 INFO::ncwrt_retrieval_prior:: Start writing configuration file ***retrprior.nc***...
+2019-03-31 09:39:28,713 INFO::ncwrt_retrieval_prior:: ...writing ***retrprior.nc*** DONE
+2019-03-31 09:39:28,713 INFO::ncwrt_retrieval_model:: Start writing configuration file ***retrmodel.nc***...
+2019-03-31 09:39:28,717 INFO::ncwrt_retrieval_model:: ...writing ***retrmodel.nc*** DONE
+2019-03-31 09:39:28,717 INFO::wrt_nml_retrieval_control:: Start writing configuration file ***retrctl.nml***...
+2019-03-31 09:39:28,717 INFO::wrt_nml_retrieval_control:: ...writing ***retrctl.nml*** DONE
+2019-03-31 09:39:28,717 INFO::wrt_nml_controlvector_bounds:: Start writing configuration file ***retrctlvecbounds.nml***...
+2019-03-31 09:39:28,718 INFO::wrt_nml_controlvector_bounds:: ...writing ***retrctlvecbounds.nml*** DONE
