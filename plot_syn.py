@@ -46,7 +46,72 @@ def plot_state(var, _dir='ret_code', axes=None):
     plt.legend(frameon=True, fancybox=True, framealpha=0.5)
     return ret_val
 
+def plot_obs_s1(obsfile, axes=None):
+    """
+    """
+    ncfp = nc.Dataset(obsfile)
+    
+    if axes is None:
+        fig, ax = plt.subplots()
+        ret_val = fig, ax
+    else:
+       ax = axes
+       ret_val = ax
+    sat_times = nc.num2date(ncfp.variables['time'][:], ncfp.variables['time'].units)
+    
+    bscat = ncfp.variables['backscatter'][:]
+    bscatunc = ncfp.variables['backscatter_unc'][:]
+    vh = bscat[:,0]
+    vv = bscat[:,1]
+    vh_unc = bscatunc[:,0]
+    vv_unc = bscatunc[:,1]
+    ax.errorbar(sat_times, vh,
+                yerr=vh_unc,
+                fmt='o', label='VH', color='b', alpha=0.7)
+    ax.errorbar(sat_times, vv,
+                yerr=vv_unc,
+                fmt='x', label='VV', color='r')
+    ncfp.close()
+    ax.set_xlabel('Date')
+    ax.set_ylabel('backscatter')
+    if axes is None:
+        fig.autofmt_xdate()
+    plt.legend(frameon=True, fancybox=True, framealpha=0.5)
+    return ret_val
 
+
+def plot_obs_s2(obsfile, axes=None):
+    """
+    """
+    ncfp = nc.Dataset(obsfile)
+    
+    if axes is None:
+        fig, ax = plt.subplots()
+        ret_val = fig, ax
+    else:
+       ax = axes
+       ret_val = ax
+    sat_times = nc.num2date(ncfp.variables['time'][:], ncfp.variables['time'].units)
+    labels = ['B1','B2','B3','B4','B5','B6','B7',
+              'B8','B8A', 'B9', 'B10','B11','B12' ]
+    brf = ncfp.variables['brf'][:]
+    brf_unc = ncfp.variables['brf_unc'][:]
+    npts,nb = brf.shape
+
+    for ib in range(nb):
+        ax.errorbar(sat_times, brf[:,ib],
+                    yerr=brf_unc[:,ib],
+                    fmt='x', label=labels[ib], alpha=0.7)
+    ncfp.close()
+    ax.set_xlabel('Date')
+    ax.set_ylabel('reflectance')
+    if axes is None:
+        fig.autofmt_xdate()
+    plt.legend(frameon=True, fancybox=True, framealpha=0.5)
+    return ret_val
+
+
+    
 def plot_iterate(itfile, var='fct', axes=None):
     """
     Function which plots the output retrieval iteration logfile 'iterate.dat'
