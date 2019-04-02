@@ -557,6 +557,11 @@ def explist_uncred_lineplot(options):
     ylim_lo = -2. #-- set negative value to avoid the zero-valued reference case to
                   #   appear directly on the axis
     ylim_hi = 100. + 2.
+    if options.yhi!=None:
+        ylim_hi = options.yhi
+    if options.ylo!=None:
+        ylim_lo = options.ylo
+
     msg = "xlim_lo={} xlim_hi={} ylim_lo={} ylim_hi={}".format(xlim_lo, xlim_hi, ylim_lo, ylim_hi)
     FileLogger.info(msg)
 
@@ -892,6 +897,8 @@ def explist_state_lineplot(options):
     ylim_hi = data_table.max()
     if options.yhi!=None:
         ylim_hi = options.yhi
+    if options.ylo!=None:
+        ylim_lo = options.ylo
     elif data_tag=='lai':
         ylim_hi = 1.1
     elif data_tag=='canht':
@@ -1060,6 +1067,9 @@ def create_argument_parser(progname=None):
         aparser.add_argument( '--yhi',
                               type=float,
                               help="""user specified maximum value at y-axis""" )
+        aparser.add_argument( '--ylo',
+                              type=float,
+                              help="""user specified minimum value at y-axis""" )
     # ---_add_plot_options---
 
     parser = argparse.ArgumentParser( prog=progname, usage=globals()['__doc__'] )
