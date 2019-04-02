@@ -2,7 +2,8 @@
 
 rm -r tool_intro/example_synthetic
 cp -r retrieval_tool_examples/ret_code1.7 tool_intro/example_synthetic
-( cd tool_intro/example_synthetic; make simulate.x runretrieval.x )
+( cd tool_intro/example_synthetic;
+  ln -fs ../../cost_fn.png .; make simulate.x runretrieval.x )
 
 rm -rf mba_intro/example_mba
 cp -r retrieval_tool_examples/ret_code1.7 mba_intro/example_mba
