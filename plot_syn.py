@@ -5,7 +5,7 @@ import matplotlib.mlab as mlab
 import datetime as dt
 
 
-def plot_state(var, _dir='ret_code', axes=None):
+def plot_state(var, _dir='ret_code', pert=0.25, axes=None):
     """
     Function which plots the output of the retrieval tool, including site level observations for comparison.
     :param var: which variable to plot, lai, sm or canht (str)
@@ -27,11 +27,16 @@ def plot_state(var, _dir='ret_code', axes=None):
                 'sm': r'Soil moisture (m$^{3}$ m$^{-3}$)'}
     sat_times = nc.num2date(post.variables['time'][:], post.variables['time'].units)
 
-    ax.errorbar(sat_times, pri.variables[var][:],
+    privar = pri.variables[var][:]
+    privar_unc = pri.variables[var+'_unc'][:]
+    pertvar = privar*(1.+pert)
+    ax.errorbar(sat_times, privar,
                 yerr=pri.variables[var+'_unc'][:],
-                fmt='o', label='prior', color='b', alpha=0.7)
+                fmt='o', label='prior', color='b', alpha=0.7, markersize=1.5)
     ax.errorbar(sat_times, post.variables[var][:],
                 fmt='x', label='post', color='r')
+    ax.errorbar(sat_times, pertvar,
+                fmt='o', label='perturbed', color='g', markersize=3)
 
     post.close()
     pri.close()
@@ -44,6 +49,7 @@ def plot_state(var, _dir='ret_code', axes=None):
     if axes is None:
         fig.autofmt_xdate()
     plt.legend(frameon=True, fancybox=True, framealpha=0.5)
+#    plt.figsize((10,8)
     return ret_val
 
 def plot_obs_s1(obsfile, axes=None):
